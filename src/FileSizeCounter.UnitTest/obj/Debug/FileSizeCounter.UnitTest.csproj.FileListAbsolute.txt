@@ -1,0 +1,7 @@
+C:\VDisk\Private\FileSizeCounter\src\FileSizeCounter.UnitTest\bin\Debug\FileSizeCounter.UnitTest.dll
+C:\VDisk\Private\FileSizeCounter\src\FileSizeCounter.UnitTest\bin\Debug\FileSizeCounter.UnitTest.pdb
+C:\VDisk\Private\FileSizeCounter\src\FileSizeCounter.UnitTest\bin\Debug\FileSizeCounter.exe
+C:\VDisk\Private\FileSizeCounter\src\FileSizeCounter.UnitTest\bin\Debug\FileSizeCounter.pdb
+C:\VDisk\Private\FileSizeCounter\src\FileSizeCounter.UnitTest\obj\Debug\FileSizeCounter.UnitTest.csprojResolveAssemblyReference.cache
+C:\VDisk\Private\FileSizeCounter\src\FileSizeCounter.UnitTest\obj\Debug\FileSizeCounter.UnitTest.dll
+C:\VDisk\Private\FileSizeCounter\src\FileSizeCounter.UnitTest\obj\Debug\FileSizeCounter.UnitTest.pdb

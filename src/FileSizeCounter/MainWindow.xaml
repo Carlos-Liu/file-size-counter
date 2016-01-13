@@ -1,0 +1,63 @@
+﻿<Window x:Class="FileSizeCounter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:model="clr-namespace:FileSizeCounter.Model"
+        Title="MainWindow" Height="350" Width="525">
+  <Grid Name="RootGrid">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="74*"/>
+      <ColumnDefinition Width="370*"/>
+      <ColumnDefinition Width="73*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="33*"/>
+      <RowDefinition Height="44*"/>
+      <RowDefinition Height="243*"/>
+    </Grid.RowDefinitions>
+    
+    <TextBlock Name="Directory" Text="Directory:"/>
+    <TextBox Grid.Row="0" Grid.Column="1" Name="DirectoryTextBox" Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged}" />
+    <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Content="..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+      <TextBlock Text="Threshold Value (Mb):" />
+      <TextBox Name="ThresholdValueTextBox" MinWidth="50"/>
+    </StackPanel>
+    
+    <Button Name="StartButton" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="Start"
+            Command="{Binding StartCmd}"/>
+    
+    <TreeView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
+              Name="ResultTreeView"
+              ItemsSource="{Binding ElementList}">
+      
+      <TreeView.ItemContainerStyle>
+        <Style TargetType="{x:Type TreeViewItem}">
+          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+          <Setter Property="FontWeight" Value="Normal" />
+          <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+          </Style.Triggers>
+          <Style.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="PaleGreen" Opacity="0.5"/>
+          </Style.Resources>
+        </Style>
+      </TreeView.ItemContainerStyle>
+
+      <TreeView.ItemTemplate>
+        <HierarchicalDataTemplate ItemsSource="{Binding Children}" DataType="model:Element">
+          <StackPanel Orientation="Horizontal">
+            <Image Width="16" Height="16" Margin="3,3,3,3" Source="{Binding ImagePath}" />
+
+            <TextBlock x:Name="elementNameTextBlock" Text="{Binding DisplayString}">
+            </TextBlock>
+
+          </StackPanel>
+        </HierarchicalDataTemplate>
+      </TreeView.ItemTemplate>
+    </TreeView>
+  </Grid>
+</Window>
