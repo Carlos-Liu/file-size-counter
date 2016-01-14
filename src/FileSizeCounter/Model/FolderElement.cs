@@ -11,22 +11,7 @@ namespace FileSizeCounter.Model
     {
       Name = name;
     }
-
-    public void Add(IElement element)
-    {
-      Size += element.Size;
-      
-      element.Parent = this;
-      Children.Add(element);
-    }
-
-    public void Remove(IElement element)
-    {
-      Size -= element.Size;
-
-      Children.Remove(element);
-    }
-
+    
     public override string ShortName
     {
       get
@@ -45,6 +30,21 @@ namespace FileSizeCounter.Model
     public override string ImagePath
     {
       get { return @"Images\folder16.png"; }
+    }
+
+    public void Add(IElement element)
+    {
+      Size += element.Size;
+
+      element.Parent = this;
+      Children.Add(element);
+    }
+
+    public void Remove(IElement element)
+    {
+      Size -= element.Size;
+
+      Children.Remove(element);
     }
   }
 }

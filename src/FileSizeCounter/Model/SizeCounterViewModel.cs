@@ -1,14 +1,22 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
+using System.Windows;
+using FileSizeCounter.Common;
 using FileSizeCounter.MicroMvvm;
 
 namespace FileSizeCounter.Model
 {
   public class SizeCounterViewModel : ObservableObject
   {
-    public SizeCounterViewModel()
+    private Window OwnerWindow { get; set; }
+
+    public SizeCounterViewModel(Window ownerWindow)
     {
+      Debug.Assert(ownerWindow != null);
+
       TargetDirectory = @"C:\Users\zliu02\Downloads";
+      OwnerWindow = ownerWindow;
     }
 
     #region Data bindings
@@ -20,7 +28,9 @@ namespace FileSizeCounter.Model
     {
       get { return _ElementList; }
     }
-
+    /// <summary>
+    /// The root directory that will be processed to get the inside file/folder size
+    /// </summary>
     public string TargetDirectory
     {
       get { return _TargetDirectory; }
@@ -35,7 +45,9 @@ namespace FileSizeCounter.Model
     }
 
     private RelayCommand _StartCommand;
-
+    /// <summary>
+    /// Command for the start action
+    /// </summary>
     public RelayCommand StartCmd
     {
       get
@@ -46,7 +58,7 @@ namespace FileSizeCounter.Model
         return _StartCommand;
       }
     }
-
+    // If can start the process
     private bool CanStart()
     {
       return !string.IsNullOrWhiteSpace(TargetDirectory) && 
@@ -57,14 +69,29 @@ namespace FileSizeCounter.Model
     {
       ElementList.Clear();
 
+      string message = "Counting the file/folder size";
+      var busyWindow = new BusyIndicatorWindow();
+
+      var result = busyWindow.ExecuteAndWait(OwnerWindow, message, foo);
+      if (busyWindow.IsSuccessfullyExecuted == true)
+      {
+        ElementList.Add(result);
+        result.IsExpanded = true;
+      }
+      //TODO: what about the case failed
+    }
+
+    private FolderElement foo()
+    {
       var rootElement = new FolderElement(TargetDirectory);
       ProcessDirectory(TargetDirectory, rootElement);
 
-      ElementList.Add(rootElement);
+      return rootElement;
     }
 
     private void ProcessDirectory(string directory, FolderElement currentFolderElement)
     {
+      //TODO: change the recursive to do-while
       string[] fileEntries = Directory.GetFiles(directory);
       foreach (var fileName in fileEntries)
       {

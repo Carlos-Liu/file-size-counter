@@ -3,21 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:model="clr-namespace:FileSizeCounter.Model"
         Title="MainWindow" Height="350" Width="525">
+  <Window.Resources>
+    <Style BasedOn="{StaticResource NormalTextBlockStyle}" TargetType="TextBlock"/>
+  </Window.Resources>
+  
   <Grid Name="RootGrid">
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="74*"/>
-      <ColumnDefinition Width="370*"/>
-      <ColumnDefinition Width="73*"/>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-      <RowDefinition Height="33*"/>
-      <RowDefinition Height="44*"/>
-      <RowDefinition Height="243*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     
     <TextBlock Name="Directory" Text="Directory:"/>
     <TextBox Grid.Row="0" Grid.Column="1" Name="DirectoryTextBox" Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged}" />
-    <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Content="..." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Content="..." MinWidth="30" />
 
     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
       <TextBlock Text="Threshold Value (Mb):" />

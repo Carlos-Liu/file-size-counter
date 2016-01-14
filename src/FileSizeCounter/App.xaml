@@ -1,8 +1,312 @@
 ﻿<Application x:Class="FileSizeCounter.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <!-- Metro Theme -->
+        <ResourceDictionary Source="Common/Themes/Metro/Metro.MSControls.Core.Implicit.xaml" />
+        <ResourceDictionary Source="Common/Themes/TabControlTheme.xaml" />
+
+      </ResourceDictionary.MergedDictionaries>
+
+      <SolidColorBrush x:Key="BackgroundKey" Color="#FFFFFF" />
+
+      <!-- Dark Theme -->
+      <!--<SolidColorBrush x:Key="BackgroundKey" Color="#FF181818" />-->
+
+      <!--*************************************** Implicit Styles  **************************************** -->
+
+      <!-- ***** CONSTS ***** -->
+      <system:Double x:Key="ControlIndented">36</system:Double>
+      <system:Double x:Key="RelatedControlMargin">4</system:Double>
+      <system:Double x:Key="UnrelatedControlMargin">7</system:Double>
+      <!-- normally the margin should be 14 DIU, but it minus the control margin (4) here -->
+      <system:Double x:Key="UnrelatedCtrlVerticalMargin">10</system:Double>
+      <!-- normally the dialog box margin should be 14 DIU, but it minus the control margin (4) here -->
+      <system:Double x:Key="DialogMargin">10</system:Double>
+      <!-- the top margin value for the first control in a group box -->
+      <system:Double x:Key="FirstCtrlTopMargin">22</system:Double>
+      <system:Double x:Key="NormalFontSize">12.0</system:Double>
+      <system:Double x:Key="ButtonMinHeight">25</system:Double>
+      <system:Double x:Key="ThinCtrlMinHeight">16</system:Double>
+      <system:Double x:Key="DataGridMinRowHeight">30</system:Double>
+
+      <!-- ********************************** TextBlock Style **********************************-->
+      <Style x:Key="HeaderTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="Foreground" Value="#FF00AADE" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+
+      <Style x:Key="SubHeaderTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+        <!--<Setter Property="Foreground" Value="#FF00AADE" />-->
+      </Style>
+
+      <Style x:Key="GroupHeaderTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+      </Style>
+
+      <Style x:Key="NormalTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalAlignment" Value="Center" />
+      </Style>
+
+      <!-- ********************************** Button Style **********************************-->
+      <Style BasedOn="{StaticResource ButtonStyle}" TargetType="{x:Type Button}" >
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+        <Setter Property="MinHeight" Value="{StaticResource ButtonMinHeight}" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- ********************************** ComboBox Style **********************************-->
+      <Style x:Key="NormailFontComboBoxItemStyle" BasedOn="{StaticResource ComboBoxItemStyle}" TargetType="ComboBoxItem">
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+      </Style>
+      <Style BasedOn="{StaticResource ComboBoxStyle}" TargetType="{x:Type ComboBox}">
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource NormailFontComboBoxItemStyle}" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- ********************************** TextBox Style **********************************-->
+      <Style BasedOn="{StaticResource TextBoxStyle}" TargetType="{x:Type TextBox}" >
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style BasedOn="{StaticResource ListBoxItemStyle}" TargetType="ListBoxItem">
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+      </Style>
+      <Style BasedOn="{StaticResource ListBoxStyle}" TargetType="{x:Type ListBox}" >
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- ********************************** CheckBox Style **********************************-->
+      <Style BasedOn="{StaticResource CheckBoxStyle}" TargetType="CheckBox">
+        <!-- Adding setter for VerticalContentAlignment to target default behavior of MS check box. -->
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+        <Setter Property="MinHeight" Value="{StaticResource ThinCtrlMinHeight}" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="-2" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- ********************************** RadioButton Style **********************************-->
+      <Style BasedOn="{StaticResource RadioButtonStyle}" TargetType="{x:Type RadioButton}" >
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+        <Setter Property="MinHeight" Value="{StaticResource ThinCtrlMinHeight}" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- ********************************** Label Style **********************************-->
+      <Style BasedOn="{StaticResource LabelStyle}" TargetType="{x:Type Label}" >
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style BasedOn="{StaticResource PasswordBoxStyle}" TargetType="{x:Type PasswordBox}" >
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style BasedOn="{StaticResource ToggleButtonStyle}" TargetType="{x:Type ToggleButton}" >
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <!-- *********************************  GroupBox Style  ********************************* -->
+      <Style BasedOn="{StaticResource GroupBoxStyle}" TargetType="{x:Type GroupBox}" >
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+        <Setter Property="Padding">
+          <Setter.Value>
+            <Thickness Top="{StaticResource UnrelatedCtrlVerticalMargin}" Bottom="0"
+                       Left="0" Right="0"/>
+          </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- ********************************** TabControl Style **********************************-->
+      <Style BasedOn="{StaticResource TabControlStyle}" TargetType="TabControl">
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style BasedOn="{StaticResource SeperatorStyle}" TargetType="Separator">
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource UnrelatedControlMargin}" Bottom="{StaticResource UnrelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <!-- *********************************  ToolTip Style  ********************************* -->
+      <Style BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
+        <Setter Property="FontSize" Value="{StaticResource NormalFontSize}" />
+      </Style>
+
+      <SolidColorBrush x:Key="DataGridRowBrush" Color="{StaticResource Color_004}" Opacity="0.3"/>
+      <Style BasedOn="{StaticResource DataGridStyle}" TargetType="DataGrid">
+        <Setter Property="MinRowHeight" Value="{StaticResource DataGridMinRowHeight}" />
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="SelectionUnit" Value="FullRow" />
+        <Setter Property="AlternationCount" Value="0" />
+        <Setter Property="CanUserAddRows" Value="False" />
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource DataGridRowBrush}" />
+        <Setter Property="CanUserSortColumns" Value="False" />
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style BasedOn="{StaticResource ScrollViewerStyle}" TargetType="{x:Type ScrollViewer}">
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style BasedOn="{StaticResource SliderStyle}" TargetType="{x:Type Slider}" >
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style BasedOn="{StaticResource RepeatButtonStyle}" TargetType="{x:Type RepeatButton}" >
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style BasedOn="{StaticResource ProgressBarStyle}" TargetType="{x:Type ProgressBar}" >
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style BasedOn="{StaticResource ExpanderStyle}" TargetType="{x:Type Expander}" >
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style TargetType="{x:Type DatePicker}" >
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+      <Style TargetType="Image">
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
+    </ResourceDictionary>
+
+  </Application.Resources>
 </Application>

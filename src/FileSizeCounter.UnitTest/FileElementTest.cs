@@ -22,7 +22,7 @@ namespace FileSizeCounter.UnitTest
       var fileElement = new FileElement("file1.text", 1023);
 
       var actual = fileElement.DisplaySize;
-      Assert.AreEqual("1023 BYTES", actual);
+      Assert.AreEqual("1023 Byte(s)", actual);
     }
 
     [TestMethod]

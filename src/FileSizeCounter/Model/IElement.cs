@@ -27,7 +27,9 @@ namespace FileSizeCounter.Model
     /// The element image path (for display purpose)
     /// </summary>
     string ImagePath { get; }
-
+    /// <summary>
+    /// Parent of the element
+    /// </summary>
     IElement Parent { get; set; }
     /// <summary>
     /// The children elements list

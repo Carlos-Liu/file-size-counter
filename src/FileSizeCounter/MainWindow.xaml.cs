@@ -11,7 +11,7 @@ namespace FileSizeCounter
     {
       InitializeComponent();
 
-      DataContext = new SizeCounterViewModel();
+      DataContext = new SizeCounterViewModel(this);
     }
   }
 }

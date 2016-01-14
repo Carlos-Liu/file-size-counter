@@ -5,15 +5,13 @@ namespace FileSizeCounter.Model
 {
   internal abstract class Element : ObservableObject, IElement
   {
-    private const string ByteSuffix = " BYTES";
+    private const string ByteSuffix = " Byte(s)";
     private const string KbSuffix = " K";
     private const string MbSuffix = " M";
     private const string GbSuffix = " G";
     private const float SizeMeasurement = 1024.0f;
 
     private long _Size;
-    public string Name { get; protected set; }
-
     public long Size
     {
       get { return _Size; }
@@ -49,7 +47,10 @@ namespace FileSizeCounter.Model
       }
     }
 
+    public string Name { get; protected set; }
+
     public abstract string ShortName { get; }
+
     public abstract string ImagePath { get; }
 
     public IElement Parent { get; set; }

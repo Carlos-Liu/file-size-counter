@@ -1,0 +1,26 @@
+﻿<Window x:Class="FileSizeCounter.Common.BusyIndicatorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="300" MinWidth="300" MinHeight="100"
+        SizeToContent="WidthAndHeight"
+        ShowInTaskbar="False"
+        ShowActivated="True"
+        ResizeMode="NoResize"
+        Topmost="True" 
+        WindowStartupLocation="CenterOwner" 
+        WindowStyle="None">
+  <Window.Resources>
+    <Style BasedOn="{StaticResource NormalTextBlockStyle}" TargetType="TextBlock"/>
+  </Window.Resources>
+
+  <Border BorderThickness="1.5" BorderBrush="Black">
+    <Grid VerticalAlignment="Center">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <TextBlock x:Name="PromptMessageTextBlock" Grid.Row="0"/>
+      <ProgressBar x:Name="WaitingProgressBar" Grid.Row="1" IsIndeterminate="True" Height="30"/>
+    </Grid>
+  </Border>
+</Window>
