@@ -2,7 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:model="clr-namespace:FileSizeCounter.Model"
-        Title="MainWindow" Height="350" Width="525">
+        Title="File Size Count" 
+        SizeToContent="Width"
+        MinHeight="620"
+        MinWidth="600" 
+        WindowStartupLocation="CenterScreen">
   <Window.Resources>
     <Style BasedOn="{StaticResource NormalTextBlockStyle}" TargetType="TextBlock"/>
   </Window.Resources>

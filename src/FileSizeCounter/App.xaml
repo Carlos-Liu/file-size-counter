@@ -306,6 +306,15 @@
         </Setter>
       </Style>
 
+      <Style TargetType="TreeView">
+        <Setter Property="Margin" >
+          <Setter.Value>
+            <Thickness Top="{StaticResource RelatedControlMargin}" Bottom="{StaticResource RelatedControlMargin}"
+                       Left="{StaticResource RelatedControlMargin}" Right="{StaticResource RelatedControlMargin}"/>
+          </Setter.Value>
+        </Setter>
+      </Style>
+
     </ResourceDictionary>
 
   </Application.Resources>
