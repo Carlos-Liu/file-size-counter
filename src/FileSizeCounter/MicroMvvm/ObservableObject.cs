@@ -9,19 +9,19 @@ using System.Runtime.CompilerServices;
 namespace FileSizeCounter.MicroMvvm
 {
   /// <summary>
-  /// One <see cref="INotifyPropertyChanged"/> implementation to facilitate MVVM code.
+  ///   One <see cref="INotifyPropertyChanged" /> implementation to facilitate MVVM code.
   /// </summary>
   [Serializable]
   public abstract class ObservableObject : INotifyPropertyChanged
   {
     /// <summary>
-    /// Occurs when property changed.
+    ///   Occurs when property changed.
     /// </summary>
     [field: NonSerialized]
     public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
-    /// Called when property changed, and derived classes can override this to customize the behavior.
+    ///   Called when property changed, and derived classes can override this to customize the behavior.
     /// </summary>
     /// <param name="e">event argument.</param>
     protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
@@ -34,7 +34,7 @@ namespace FileSizeCounter.MicroMvvm
     }
 
     /// <summary>
-    /// Helper method to raise the PropetyChanged event.
+    ///   Helper method to raise the PropetyChanged event.
     /// </summary>
     /// <typeparam name="T">the property type.</typeparam>
     /// <param name="propertyExpresssion">property name.</param>
@@ -45,22 +45,22 @@ namespace FileSizeCounter.MicroMvvm
     }
 
     /// <summary>
-    /// Helper method to raise the ProperyChanged event.
+    ///   Helper method to raise the ProperyChanged event.
     /// </summary>
     /// <param name="propertyName">property name.</param>
-    protected void RaisePropertyChanged([CallerMemberName] String propertyName = "")
+    protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
     {
       VerifyPropertyName(propertyName);
       OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
     }
 
     /// <summary>
-    /// Warns the developer if this Object does not have a public property with
-    /// the specified name. This method does not exist in a Release build.
+    ///   Warns the developer if this Object does not have a public property with
+    ///   the specified name. This method does not exist in a Release build.
     /// </summary>
     [Conditional("DEBUG")]
     [DebuggerStepThrough]
-    public void VerifyPropertyName(String propertyName)
+    public void VerifyPropertyName(string propertyName)
     {
       // verify that the property name matches a real,  
       // public, instance property on this Object.

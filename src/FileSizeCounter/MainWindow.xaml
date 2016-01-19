@@ -12,60 +12,76 @@
   </Window.Resources>
   
   <Grid Name="RootGrid">
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="Auto"/>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    
-    <TextBlock Name="Directory" Text="Directory:"/>
-    <TextBox Grid.Row="0" Grid.Column="1" Name="DirectoryTextBox" Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged}" />
-    <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Content="..." MinWidth="30" />
 
-    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-      <TextBlock Text="Threshold Value (Mb):" />
-      <TextBox Name="ThresholdValueTextBox" MinWidth="50"/>
-    </StackPanel>
-    
-    <Button Name="StartButton" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="Start"
+    <Grid Name="ContentGrid" Margin="10, 10">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+
+      <TextBlock Name="Directory" Text="Inspect Directory:"/>
+      <TextBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged}" />
+      <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Content="..." MinWidth="30" Click="BrowseButton_OnClick"/>
+
+      <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+        <TextBlock Text="Threshold Value (Mb):" />
+        <TextBox Name="ThresholdValueTextBox" MinWidth="50"/>
+      </StackPanel>
+
+      <Button Name="StartButton" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="Start"
             Command="{Binding StartCmd}"/>
-    
-    <TreeView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
-              Name="ResultTreeView"
-              ItemsSource="{Binding ElementList}">
-      
-      <TreeView.ItemContainerStyle>
-        <Style TargetType="{x:Type TreeViewItem}">
-          <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-          <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-          <Setter Property="FontWeight" Value="Normal" />
-          <Style.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-              <Setter Property="Foreground" Value="Black"/>
-            </Trigger>
-          </Style.Triggers>
-          <Style.Resources>
-            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="PaleGreen" Opacity="0.5"/>
-          </Style.Resources>
-        </Style>
-      </TreeView.ItemContainerStyle>
 
-      <TreeView.ItemTemplate>
-        <HierarchicalDataTemplate ItemsSource="{Binding Children}" DataType="model:Element">
-          <StackPanel Orientation="Horizontal">
-            <Image Width="16" Height="16" Margin="3,3,3,3" Source="{Binding ImagePath}" />
+      <TreeView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
+                Name="ResultTreeView"
+                ItemsSource="{Binding ElementList}"
+                BorderThickness="1"
+                Background="{StaticResource ListBoxBackgroundBrush}"
+                BorderBrush="{StaticResource ListBoxBorderBrush}"
+                Foreground="{StaticResource ForegroundBrush}">
 
-            <TextBlock x:Name="elementNameTextBlock" Text="{Binding DisplayString}">
-            </TextBlock>
+        <TreeView.ItemContainerStyle>
+          <Style TargetType="{x:Type TreeViewItem}">
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+            <Setter Property="Background" Value="{StaticResource TransparentBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+            <Setter Property="FontSize" Value="13.333" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="Padding" Value="6,2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="0" />
+            <Style.Triggers>
+              <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource ListBoxItemSelectedBackgroundBrush}" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="BorderBrush" Value="{StaticResource ListBoxItemPressedBorderBrush}" />
+                <Setter Property="BorderThickness" Value="2" />
+              </Trigger>
+            </Style.Triggers>
+            <Style.Resources>
+              <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="{StaticResource Color_026}" Opacity="0.5"/>
+            </Style.Resources>
+          </Style>
+        </TreeView.ItemContainerStyle>
 
-          </StackPanel>
-        </HierarchicalDataTemplate>
-      </TreeView.ItemTemplate>
-    </TreeView>
+        <TreeView.ItemTemplate>
+          <HierarchicalDataTemplate ItemsSource="{Binding Children}" DataType="model:Element">
+            <StackPanel Orientation="Horizontal">
+              <Image Width="16" Height="16" Margin="3,3,3,3" Source="{Binding ImagePath}" />
+
+              <TextBlock x:Name="elementNameTextBlock" Text="{Binding DisplayString}">
+              </TextBlock>
+
+            </StackPanel>
+          </HierarchicalDataTemplate>
+        </TreeView.ItemTemplate>
+      </TreeView>
+    </Grid>
   </Grid>
 </Window>

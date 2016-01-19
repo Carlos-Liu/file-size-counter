@@ -11,12 +11,9 @@ namespace FileSizeCounter.Model
       Size = size;
     }
 
-    public override string ShortName 
+    public override string ShortName
     {
-      get
-      {
-        return Path.GetFileName(Name);
-      }
+      get { return Path.GetFileName(Name); }
     }
 
     public override ObservableCollection<IElement> Children
@@ -24,7 +21,7 @@ namespace FileSizeCounter.Model
       get { return new ObservableCollection<IElement>(); }
     }
 
-    public override string ImagePath 
+    public override string ImagePath
     {
       get { return @"Images\file16.png"; }
     }

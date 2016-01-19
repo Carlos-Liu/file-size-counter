@@ -123,4 +123,7 @@
   <data name="PropertySupport_Error_PropertyIsStatic" xml:space="preserve">
     <value>The referenced property is a static property.</value>
   </data>
+  <data name="MainWindow_Info_SelectTargetDirectory" xml:space="preserve">
+    <value>Please select the folder you want to inspect</value>
+  </data>
 </root>

@@ -8,8 +8,8 @@ namespace FileSizeCounter.UnitTest
     [TestMethod]
     public void CompareOrdinal_TheStringsOnlyDifferInCaseButDoNotIgnoreCaseWhenCompare_TheStringsAreNotEqual()
     {
-      string source = "String";
-      string compared = "string";
+      var source = "String";
+      var compared = "string";
 
       var isEqual = source.CompareOrdinal(compared);
       Assert.IsFalse(isEqual);
@@ -18,8 +18,8 @@ namespace FileSizeCounter.UnitTest
     [TestMethod]
     public void CompareOrdinal_TheStringsOnlyDifferInCaseButIgnoreCaseWhenCompare_TheStringsAreEqual()
     {
-      string source = "String";
-      string compared = "string";
+      var source = "String";
+      var compared = "string";
 
       var isEqual = source.CompareOrdinal(compared, true);
       Assert.IsTrue(isEqual);

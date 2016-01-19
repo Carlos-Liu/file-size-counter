@@ -37,7 +37,7 @@ namespace FileSizeCounter.UnitTest
     [TestMethod]
     public void DisplaySize_FileIsMaximumKBytes_DisplayKbFormat()
     {
-      var fileElement = new FileElement("file1.text", 1024 * 1024 - 1);
+      var fileElement = new FileElement("file1.text", 1024*1024 - 1);
 
       var actual = fileElement.DisplaySize;
       Assert.AreEqual("1024.0 K", actual);
@@ -46,7 +46,7 @@ namespace FileSizeCounter.UnitTest
     [TestMethod]
     public void DisplaySize_FileIsMinMBytes_DisplayMbFormat()
     {
-      var fileElement = new FileElement("file1.text", 1024 * 1024 + 1);
+      var fileElement = new FileElement("file1.text", 1024*1024 + 1);
 
       var actual = fileElement.DisplaySize;
       Assert.AreEqual("1.0 M", actual);
@@ -55,7 +55,7 @@ namespace FileSizeCounter.UnitTest
     [TestMethod]
     public void DisplaySize_FileIsMaximumMBytes_DisplayGbFormat()
     {
-      var fileElement = new FileElement("file1.text", 1024 * 1024 * 1024 - 1);
+      var fileElement = new FileElement("file1.text", 1024*1024*1024 - 1);
 
       var actual = fileElement.DisplaySize;
       Assert.AreEqual("1.0 G", actual);

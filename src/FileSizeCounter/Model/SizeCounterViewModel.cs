@@ -9,8 +9,6 @@ namespace FileSizeCounter.Model
 {
   public class SizeCounterViewModel : ObservableObject
   {
-    private Window OwnerWindow { get; set; }
-
     public SizeCounterViewModel(Window ownerWindow)
     {
       Debug.Assert(ownerWindow != null);
@@ -18,6 +16,8 @@ namespace FileSizeCounter.Model
       TargetDirectory = @"C:\Users\zliu02\Downloads";
       OwnerWindow = ownerWindow;
     }
+
+    private Window OwnerWindow { get; set; }
 
     #region Data bindings
 
@@ -28,8 +28,9 @@ namespace FileSizeCounter.Model
     {
       get { return _ElementList; }
     }
+
     /// <summary>
-    /// The root directory that will be processed to get the inside file/folder size
+    ///   The root directory that will be processed to get the inside file/folder size
     /// </summary>
     public string TargetDirectory
     {
@@ -45,34 +46,36 @@ namespace FileSizeCounter.Model
     }
 
     private RelayCommand _StartCommand;
+
     /// <summary>
-    /// Command for the start action
+    ///   Command for the start action
     /// </summary>
     public RelayCommand StartCmd
     {
       get
       {
-        if(_StartCommand ==null)
+        if (_StartCommand == null)
           _StartCommand = new RelayCommand(Start, CanStart);
 
         return _StartCommand;
       }
     }
+
     // If can start the process
     private bool CanStart()
     {
-      return !string.IsNullOrWhiteSpace(TargetDirectory) && 
-        Directory.Exists(TargetDirectory);
+      return !string.IsNullOrWhiteSpace(TargetDirectory) &&
+             Directory.Exists(TargetDirectory);
     }
 
     private void Start()
     {
       ElementList.Clear();
 
-      string message = "Counting the file/folder size";
+      var message = "Counting the file/folder size";
       var busyWindow = new BusyIndicatorWindow();
 
-      var result = busyWindow.ExecuteAndWait(OwnerWindow, message, foo);
+      var result = busyWindow.ExecuteAndWait(OwnerWindow, message, InspectDirectory);
       if (busyWindow.IsSuccessfullyExecuted == true)
       {
         ElementList.Add(result);
@@ -81,18 +84,18 @@ namespace FileSizeCounter.Model
       //TODO: what about the case failed
     }
 
-    private FolderElement foo()
+    private FolderElement InspectDirectory()
     {
       var rootElement = new FolderElement(TargetDirectory);
-      ProcessDirectory(TargetDirectory, rootElement);
+      ParseDirectory(TargetDirectory, rootElement);
 
       return rootElement;
     }
 
-    private void ProcessDirectory(string directory, FolderElement currentFolderElement)
+    private void ParseDirectory(string directory, FolderElement currentFolderElement)
     {
       //TODO: change the recursive to do-while
-      string[] fileEntries = Directory.GetFiles(directory);
+      var fileEntries = Directory.GetFiles(directory);
       foreach (var fileName in fileEntries)
       {
         var fileInfo = new FileInfo(fileName);
@@ -100,12 +103,12 @@ namespace FileSizeCounter.Model
         currentFolderElement.Add(fileElement);
       }
 
-      string[] subDirectoryEntries = Directory.GetDirectories(directory);
+      var subDirectoryEntries = Directory.GetDirectories(directory);
       foreach (var subDirectory in subDirectoryEntries)
       {
         var folderElement = new FolderElement(subDirectory);
         currentFolderElement.Add(folderElement);
-        ProcessDirectory(subDirectory, folderElement);
+        ParseDirectory(subDirectory, folderElement);
       }
     }
 

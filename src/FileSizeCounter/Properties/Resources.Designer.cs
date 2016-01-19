@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FileSizeCounter.Properties {
+namespace Res {
     using System;
     
     
@@ -57,6 +57,15 @@ namespace FileSizeCounter.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select the folder you want to inspect.
+        /// </summary>
+        internal static string MainWindow_Info_SelectTargetDirectory {
+            get {
+                return ResourceManager.GetString("MainWindow_Info_SelectTargetDirectory", resourceCulture);
             }
         }
         

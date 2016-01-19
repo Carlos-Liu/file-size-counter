@@ -23,6 +23,19 @@ namespace FileSizeCounter.UnitTest
       Assert.AreEqual(expected, actual);
     }
 
+    private static FileElement AddNewFile(FolderElement folderElement, int fileSize)
+    {
+      return AddNewFile(folderElement, "file1", fileSize);
+    }
+
+    private static FileElement AddNewFile(FolderElement folderElement, string fileName, int fileSize)
+    {
+      var fileElement = new FileElement(fileName, fileSize);
+      folderElement.Add(fileElement);
+
+      return fileElement;
+    }
+
     #region Tests for Add
 
     [TestMethod]
@@ -146,7 +159,6 @@ namespace FileSizeCounter.UnitTest
       AddNewFile(leafLevel2Folder, 1000);
 
       Assert.AreEqual(1100, rootFolder.Size);
-
     }
 
     #endregion
@@ -175,7 +187,7 @@ namespace FileSizeCounter.UnitTest
       // asset
       Assert.AreEqual(200, _FolderElementTested.Size);
     }
-    
+
     [TestMethod]
     public void Remove_AddFileTo2LevelFoldersAndThenRemoveTheRootFile_TheRootFolderSizeIsCorrect()
     {
@@ -279,7 +291,7 @@ namespace FileSizeCounter.UnitTest
       var leafLevel2Folder = new FolderElement("Leaf_Level_2");
       rootFolder.Add(leafLevel1Folder);
       leafLevel1Folder.Add(leafLevel2Folder);
-      
+
       // act
       var actualChildrenCount = rootFolder.Children.Count;
 
@@ -318,7 +330,7 @@ namespace FileSizeCounter.UnitTest
     [TestMethod]
     public void ShortName_TestForNormalPath_TheLastFolderNameIsTheShortName()
     {
-      string testPath = @"C:\Folder1\Folder2";
+      var testPath = @"C:\Folder1\Folder2";
       var folderElement = new FolderElement(testPath);
 
       var expected = "Folder2";
@@ -330,7 +342,7 @@ namespace FileSizeCounter.UnitTest
     [TestMethod]
     public void ShortName_TestForOnlyNormalPathEndWithSlash_TheLastFolderNameIsTheShortName()
     {
-      string testPath = @"C:\Folder1\";
+      var testPath = @"C:\Folder1\";
       var folderElement = new FolderElement(testPath);
 
       var expected = @"Folder1";
@@ -342,7 +354,7 @@ namespace FileSizeCounter.UnitTest
     [TestMethod]
     public void ShortName_TestForOnlyRootPathEndWithSlash_TheRootPathWithSlashIsTheShortName()
     {
-      string testPath = @"C:\";
+      var testPath = @"C:\";
       var folderElement = new FolderElement(testPath);
 
       var expected = @"C:\";
@@ -352,18 +364,5 @@ namespace FileSizeCounter.UnitTest
     }
 
     #endregion
-
-    private static FileElement AddNewFile(FolderElement folderElement, int fileSize)
-    {
-      return AddNewFile(folderElement, "file1", fileSize);
-    }
-
-    private static FileElement AddNewFile(FolderElement folderElement, string fileName, int fileSize)
-    {
-      var fileElement = new FileElement(fileName, fileSize);
-      folderElement.Add(fileElement);
-
-      return fileElement;
-    }
   }
 }

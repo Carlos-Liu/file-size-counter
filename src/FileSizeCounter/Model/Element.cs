@@ -12,6 +12,7 @@ namespace FileSizeCounter.Model
     private const float SizeMeasurement = 1024.0f;
 
     private long _Size;
+
     public long Size
     {
       get { return _Size; }
@@ -37,13 +38,13 @@ namespace FileSizeCounter.Model
         if (Size < SizeMeasurement)
           return Size + ByteSuffix;
 
-        if (Size < SizeMeasurement * SizeMeasurement)
-          return (Size / SizeMeasurement).ToString("F1") + KbSuffix;
+        if (Size < SizeMeasurement*SizeMeasurement)
+          return (Size/SizeMeasurement).ToString("F1") + KbSuffix;
 
-        if (Size < SizeMeasurement * SizeMeasurement * SizeMeasurement)
-          return (Size / (SizeMeasurement * SizeMeasurement)).ToString("F1") + MbSuffix;
+        if (Size < SizeMeasurement*SizeMeasurement*SizeMeasurement)
+          return (Size/(SizeMeasurement*SizeMeasurement)).ToString("F1") + MbSuffix;
 
-        return (Size / (SizeMeasurement * SizeMeasurement * SizeMeasurement)).ToString("F1") + GbSuffix;
+        return (Size/(SizeMeasurement*SizeMeasurement*SizeMeasurement)).ToString("F1") + GbSuffix;
       }
     }
 
@@ -59,10 +60,7 @@ namespace FileSizeCounter.Model
 
     public string DisplayString
     {
-      get
-      {
-        return string.Format("{0} [{1}]", ShortName, DisplaySize);
-      }
+      get { return string.Format("{0} [{1}]", ShortName, DisplaySize); }
     }
 
     #region Expand / Collapse the item
@@ -71,8 +69,8 @@ namespace FileSizeCounter.Model
     private bool _IsSelected;
 
     /// <summary>
-    /// Gets/sets whether the TreeViewItem 
-    /// associated with this object is expanded.
+    ///   Gets/sets whether the TreeViewItem
+    ///   associated with this object is expanded.
     /// </summary>
     public bool IsExpanded
     {
@@ -84,16 +82,12 @@ namespace FileSizeCounter.Model
           _IsExpanded = value;
           RaisePropertyChanged();
         }
-
-        // Expand all the way up to the root.
-        //if (_IsExpanded && Parent != null)
-        //  Parent.IsExpanded = true;
       }
     }
 
     /// <summary>
-    /// Gets/sets whether the TreeViewItem 
-    /// associated with this object is selected.
+    ///   Gets/sets whether the TreeViewItem
+    ///   associated with this object is selected.
     /// </summary>
     public bool IsSelected
     {
@@ -109,6 +103,5 @@ namespace FileSizeCounter.Model
     }
 
     #endregion
-
   }
 }

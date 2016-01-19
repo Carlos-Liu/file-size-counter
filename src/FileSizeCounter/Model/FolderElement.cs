@@ -11,7 +11,7 @@ namespace FileSizeCounter.Model
     {
       Name = name;
     }
-    
+
     public override string ShortName
     {
       get

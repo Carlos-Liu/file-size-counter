@@ -6,21 +6,21 @@
         ShowInTaskbar="False"
         ShowActivated="True"
         ResizeMode="NoResize"
-        Topmost="True" 
-        WindowStartupLocation="CenterOwner" 
+        Topmost="True"
+        WindowStartupLocation="CenterOwner"
         WindowStyle="None">
   <Window.Resources>
-    <Style BasedOn="{StaticResource NormalTextBlockStyle}" TargetType="TextBlock"/>
+    <Style BasedOn="{StaticResource NormalTextBlockStyle}" TargetType="TextBlock" />
   </Window.Resources>
 
   <Border BorderThickness="1.5" BorderBrush="Black">
     <Grid VerticalAlignment="Center">
       <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
-      <TextBlock x:Name="PromptMessageTextBlock" Grid.Row="0"/>
-      <ProgressBar x:Name="WaitingProgressBar" Grid.Row="1" IsIndeterminate="True" Height="30"/>
+      <TextBlock x:Name="PromptMessageTextBlock" Grid.Row="0" />
+      <ProgressBar x:Name="WaitingProgressBar" Grid.Row="1" IsIndeterminate="True" Height="30" />
     </Grid>
   </Border>
 </Window>
