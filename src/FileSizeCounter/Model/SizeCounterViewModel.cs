@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using FileSizeCounter.Common;
 using FileSizeCounter.MicroMvvm;
+using Res;
 
 namespace FileSizeCounter.Model
 {
@@ -76,11 +77,14 @@ namespace FileSizeCounter.Model
       var parentElement = SelectedElement.Parent as FolderElement;
       Debug.Assert(parentElement != null);
 
-      bool removedFromDisk = true;
+      var confirmToDelte = MessageBox.Show(Resources.Message_DeleteFileConfirmMsg, Resources.Message_ApplicationTitle,
+        MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+      if (confirmToDelte != MessageBoxResult.Yes)
+        return;
+
       try
       {
-        // TODO: pop up confirm message box
-
 
         if (SelectedElement is FileElement)
         {
@@ -90,17 +94,14 @@ namespace FileSizeCounter.Model
         {
           Directory.Delete(SelectedElement.Name, true);
         }
-      }
-      catch (Exception)
-      {
-        //TODO: show message box
-        removedFromDisk = false;
-      }
-
-      // do this after the file/folder was removed from disk
-      if (removedFromDisk)
-      {
+      
+        // do this after the file/folder was removed from disk
         parentElement.Remove(SelectedElement);
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(string.Format(Resources.Message_Error_FailToDeletePrompt, SelectedElement.Name, ex.Message),
+          Resources.Message_ApplicationTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
       }
     }
 

@@ -70,6 +70,35 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Size Counter.
+        /// </summary>
+        internal static string Message_ApplicationTitle {
+            get {
+                return ResourceManager.GetString("Message_ApplicationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file or folder will be deleted permanently (bypassing the recycle bin), are you sure you want to delete it?.
+        /// </summary>
+        internal static string Message_DeleteFileConfirmMsg {
+            get {
+                return ResourceManager.GetString("Message_DeleteFileConfirmMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to delete the item &apos;{0}&apos;, please make you have the permission to delete it.
+        ///
+        ///Detail error information: {1}.
+        /// </summary>
+        internal static string Message_Error_FailToDeletePrompt {
+            get {
+                return ResourceManager.GetString("Message_Error_FailToDeletePrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The expression is not a member access expression..
         /// </summary>
         internal static string PropertySupport_Error_ExpressionIsNotMemberExpression {
