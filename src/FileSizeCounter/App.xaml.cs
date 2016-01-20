@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace FileSizeCounter
+﻿namespace FileSizeCounter
 {
   /// <summary>
   ///   Interaction logic for App.xaml

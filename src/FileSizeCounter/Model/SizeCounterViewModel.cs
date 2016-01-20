@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -19,6 +20,8 @@ namespace FileSizeCounter.Model
 
     private Window OwnerWindow { get; set; }
 
+    public IElement SelectedElement { get; set; }
+    
     #region Data bindings
 
     private readonly ObservableCollection<IElement> _ElementList = new ObservableCollection<IElement>();
@@ -45,6 +48,62 @@ namespace FileSizeCounter.Model
       }
     }
 
+    private RelayCommand _DeleteCmd;
+    /// <summary>
+    /// Command for deleting the selected item
+    /// </summary>
+    public RelayCommand DeleteCmd
+    {
+      get
+      {
+        if (_DeleteCmd == null)
+          _DeleteCmd = new RelayCommand(OnDeleteSelectedItem, CanDelete);
+
+        return _DeleteCmd;
+      }
+    }
+
+    internal bool CanDelete()
+    {
+      return SelectedElement != null &&
+        SelectedElement.Parent != null;
+    }
+
+    internal void OnDeleteSelectedItem()
+    {
+      Debug.Assert(SelectedElement != null);
+
+      var parentElement = SelectedElement.Parent as FolderElement;
+      Debug.Assert(parentElement != null);
+
+      bool removedFromDisk = true;
+      try
+      {
+        // TODO: pop up confirm message box
+
+
+        if (SelectedElement is FileElement)
+        {
+          File.Delete(SelectedElement.Name);
+        }
+        else
+        {
+          Directory.Delete(SelectedElement.Name, true);
+        }
+      }
+      catch (Exception)
+      {
+        //TODO: show message box
+        removedFromDisk = false;
+      }
+
+      // do this after the file/folder was removed from disk
+      if (removedFromDisk)
+      {
+        parentElement.Remove(SelectedElement);
+      }
+    }
+
     private RelayCommand _StartCommand;
 
     /// <summary>
@@ -62,7 +121,7 @@ namespace FileSizeCounter.Model
     }
 
     // If can start the process
-    private bool CanStart()
+    internal bool CanStart()
     {
       return !string.IsNullOrWhiteSpace(TargetDirectory) &&
              Directory.Exists(TargetDirectory);

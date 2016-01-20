@@ -27,6 +27,9 @@ namespace FileSizeCounter.Model
           {
             Parent.Size += delta;
           }
+
+          // notify the view to do refresh
+          RaisePropertyChangedByName(@"DisplayString");
         }
       }
     }
@@ -58,13 +61,15 @@ namespace FileSizeCounter.Model
 
     public abstract ObservableCollection<IElement> Children { get; }
 
+    public abstract void Remove(IElement elementToBeRemoved);
+
+    #region Data bindings
+
     public string DisplayString
     {
       get { return string.Format("{0} [{1}]", ShortName, DisplaySize); }
     }
-
-    #region Expand / Collapse the item
-
+    
     private bool _IsExpanded;
     private bool _IsSelected;
 

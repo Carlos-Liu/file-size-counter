@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using FileSizeCounter.Model;
 using Winforms = System.Windows.Forms;
 
@@ -9,11 +11,13 @@ namespace FileSizeCounter
   /// </summary>
   public partial class MainWindow
   {
+    public SizeCounterViewModel ViewModel { get; private set; }
     public MainWindow()
     {
       InitializeComponent();
 
-      DataContext = new SizeCounterViewModel(this);
+      ViewModel = new SizeCounterViewModel(this);
+      DataContext = ViewModel;
     }
 
     private void BrowseButton_OnClick(object sender, RoutedEventArgs e)
@@ -29,6 +33,23 @@ namespace FileSizeCounter
           InspectDirectoryTextBox.Text = folderBrowseDialog.SelectedPath;
           break;
       }
+    }
+
+    private void TreeView_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+      var item = sender as TreeViewItem;
+      if (item != null)
+      {
+        item.Focus();
+        e.Handled = true;
+      }
+    }
+
+    // Since the SeletedItem on TreeView is read-only and does not support do data-binding, so use the event
+    private void ResultTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+      var selectedItem = e.NewValue as IElement;
+      ViewModel.SelectedElement = selectedItem;
     }
   }
 }

@@ -40,11 +40,11 @@ namespace FileSizeCounter.Model
       Children.Add(element);
     }
 
-    public void Remove(IElement element)
+    public override void Remove(IElement elementToBeRemoved)
     {
-      Size -= element.Size;
+      Size -= elementToBeRemoved.Size;
 
-      Children.Remove(element);
+      Children.Remove(elementToBeRemoved);
     }
   }
 }

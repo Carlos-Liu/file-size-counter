@@ -39,14 +39,19 @@
 
       <TreeView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
                 Name="ResultTreeView"
+                SelectedItemChanged="ResultTreeView_OnSelectedItemChanged"
                 ItemsSource="{Binding ElementList}"
                 BorderThickness="1"
                 Background="{StaticResource ListBoxBackgroundBrush}"
                 BorderBrush="{StaticResource ListBoxBorderBrush}"
                 Foreground="{StaticResource ForegroundBrush}">
 
+        <!-- TreeViewItem Style -->
         <TreeView.ItemContainerStyle>
           <Style TargetType="{x:Type TreeViewItem}">
+            <!-- focus the item when right clicking the mouse -->
+            <EventSetter Event="MouseRightButtonDown" Handler="TreeView_MouseRightButtonDown" />
+            
             <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
             <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
             <Setter Property="Background" Value="{StaticResource TransparentBrush}" />
@@ -70,17 +75,33 @@
           </Style>
         </TreeView.ItemContainerStyle>
 
+        <!-- TreeViewItem Item Template -->
+        <!-- Refer to the link http://wpftutorial.net/ContextMenu.html to bind command on a context menu within a template-->
         <TreeView.ItemTemplate>
           <HierarchicalDataTemplate ItemsSource="{Binding Children}" DataType="model:Element">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" 
+                        Tag="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}">
               <Image Width="16" Height="16" Margin="3,3,3,3" Source="{Binding ImagePath}" />
-
-              <TextBlock x:Name="elementNameTextBlock" Text="{Binding DisplayString}">
-              </TextBlock>
-
+              <TextBlock x:Name="elementNameTextBlock" Text="{Binding DisplayString}" />
+              
+              <StackPanel.ContextMenu>
+                <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                  <MenuItem Header="Delete" Command="{Binding DeleteCmd}">
+                    <MenuItem.Icon>
+                      <Image Source="Images/delete.png" Height="16" Width="16" />
+                    </MenuItem.Icon>
+                  </MenuItem>
+                  <MenuItem Header="Open in Explorer" Command="{Binding OpenInExplorerCmd}">
+                    <MenuItem.Icon>
+                      <Image Source="Images/open-item.png" Height="16" Width="16" />
+                    </MenuItem.Icon>
+                  </MenuItem>
+                </ContextMenu>
+              </StackPanel.ContextMenu>
             </StackPanel>
           </HierarchicalDataTemplate>
         </TreeView.ItemTemplate>
+        
       </TreeView>
     </Grid>
   </Grid>

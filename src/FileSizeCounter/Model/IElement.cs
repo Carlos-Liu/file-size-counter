@@ -42,5 +42,10 @@ namespace FileSizeCounter.Model
     ///   The children elements list
     /// </summary>
     ObservableCollection<IElement> Children { get; }
+    /// <summary>
+    /// Remove the specified element from the children list
+    /// </summary>
+    /// <param name="elementToBeRemoved"></param>
+    void Remove(IElement elementToBeRemoved);
   }
 }

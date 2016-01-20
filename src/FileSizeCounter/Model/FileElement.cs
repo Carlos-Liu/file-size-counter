@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace FileSizeCounter.Model
@@ -24,6 +25,11 @@ namespace FileSizeCounter.Model
     public override string ImagePath
     {
       get { return @"Images\file16.png"; }
+    }
+
+    public override void Remove(IElement elementToBeRemoved)
+    {
+      throw new NotSupportedException("Invalid operation on file element.");
     }
   }
 }
