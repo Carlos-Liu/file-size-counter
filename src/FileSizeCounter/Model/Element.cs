@@ -72,6 +72,7 @@ namespace FileSizeCounter.Model
     
     private bool _IsExpanded;
     private bool _IsSelected;
+    private bool _ShouldBeHighlighted;
 
     /// <summary>
     ///   Gets/sets whether the TreeViewItem
@@ -107,6 +108,18 @@ namespace FileSizeCounter.Model
       }
     }
 
+    public bool ShouldBeHighlighted
+    {
+      get { return _ShouldBeHighlighted; }
+      set
+      {
+        if (_ShouldBeHighlighted != value)
+        {
+          _ShouldBeHighlighted = value;
+          RaisePropertyChanged();
+        }
+      }
+    }
     #endregion
   }
 }

@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\SizeCounterViewModel.cs" />
+    <Compile Include="Model\Validator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -138,6 +139,9 @@
   <ItemGroup>
     <Resource Include="Images\delete.png" />
     <Resource Include="Images\open-item.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="TODOs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -99,6 +99,24 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The specified directory is not valid or does not exist. Only the existing directory could be inspected..
+        /// </summary>
+        internal static string Message_Error_InspectDirectoryInvalid {
+            get {
+                return ResourceManager.GetString("Message_Error_InspectDirectoryInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only valid numeric value can be accepted, e.g. 2, 1.5 etc..
+        /// </summary>
+        internal static string Message_Error_SizeFilterValueInvalid {
+            get {
+                return ResourceManager.GetString("Message_Error_SizeFilterValueInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The expression is not a member access expression..
         /// </summary>
         internal static string PropertySupport_Error_ExpressionIsNotMemberExpression {

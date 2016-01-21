@@ -51,5 +51,30 @@ namespace FileSizeCounter
       var selectedItem = e.NewValue as IElement;
       ViewModel.SelectedElement = selectedItem;
     }
+
+    // Only allow input numeric text, refer to 
+    // http://stackoverflow.com/questions/1268552/how-do-i-get-a-textbox-to-only-accept-numeric-input-in-wpf#
+    private void ThresholdValueTextBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+      var textBlock = sender as TextBox;
+      string originalText = string.Empty;
+      if (textBlock != null)
+        originalText = textBlock.Text;
+
+      string previewFullText = originalText + e.Text;
+
+      e.Handled = !Helper.IsValidNumeric(previewFullText);
+    }
+    
+    // Suppress the Cut/copy/paste command and the short-cut keys
+    private void ThresholdValueTextBox_OnPreviewExecuted(object sender, ExecutedRoutedEventArgs e)
+    {
+      if (e.Command == ApplicationCommands.Copy ||
+         e.Command == ApplicationCommands.Cut ||
+         e.Command == ApplicationCommands.Paste)
+      {
+        e.Handled = true;
+      }
+    }
   }
 }

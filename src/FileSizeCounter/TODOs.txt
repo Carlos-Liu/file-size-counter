@@ -1,0 +1,3 @@
+﻿- Add attribute on the class/method that should not be counted to exclude them from the code coverage calculation
+- List the sub-directories automatically when editing the inspection directory string
+- Replace the recursive calls as loop, refer to http://www.codeproject.com/Articles/418776/How-to-replace-recursive-functions-using-stack-and

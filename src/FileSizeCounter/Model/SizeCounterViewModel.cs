@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -9,17 +12,77 @@ using Res;
 
 namespace FileSizeCounter.Model
 {
-  public class SizeCounterViewModel : ObservableObject
+  public class SizeCounterViewModel : ObservableObject, IDataErrorInfo
   {
+    private const double DefaultFilterSize = double.MaxValue;
     public SizeCounterViewModel(Window ownerWindow)
     {
       Debug.Assert(ownerWindow != null);
 
       TargetDirectory = @"C:\Users\zliu02\Downloads";
       OwnerWindow = ownerWindow;
+      FilterSize = DefaultFilterSize;
     }
 
+    private string _SizeFilterValue;
     private Window OwnerWindow { get; set; }
+
+    private double _FilterSize;
+
+    private double FilterSize
+    {
+      get { return _FilterSize; }
+      set
+      {
+        if (_FilterSize != value)
+        {
+          _FilterSize = value;
+
+          if (ElementList.Count == 0) return;
+          Stack<FolderElement> stack = new Stack<FolderElement>();
+          stack.Push(ElementList[0] as FolderElement);
+
+          while (stack.Count > 0)
+          {
+            var currentFolder = stack.Pop();
+            foreach (var element in currentFolder.Children)
+            {
+              // clear previous settings
+              element.ShouldBeHighlighted = false;
+              // in bytes
+              if (element.Size > (value * 1024 * 1024))
+              {
+                element.ShouldBeHighlighted = true;
+
+                if (element is FolderElement)
+                {
+                  stack.Push(element as FolderElement);
+                }
+              }
+            }
+          }
+
+            //var collection = ElementList;
+
+            //while (collection.Count > 0)
+            //{
+            //  foreach (var element in collection)
+            //  {
+            //    // clear previous settings
+            //    element.ShouldBeHighlighted = false;
+            //    // in bytes
+            //    if (element.Size > (value * 1024 * 1024))
+            //    {
+            //      element.ShouldBeHighlighted = true;
+            //    }
+
+            //    collection = element.Children;
+            //  }
+            //}
+          //}
+        }
+      }
+    }
 
     public IElement SelectedElement { get; set; }
     
@@ -49,7 +112,32 @@ namespace FileSizeCounter.Model
       }
     }
 
+    public string SizeFilterValue
+    {
+      get { return _SizeFilterValue; }
+      set
+      { 
+        if(!_SizeFilterValue.CompareOrdinal(value))
+        {
+          _SizeFilterValue = value;
+
+          if (string.IsNullOrWhiteSpace(value))
+            FilterSize = DefaultFilterSize;
+          else
+          {
+            double parsedValue;
+            bool succeeded = double.TryParse(value, out parsedValue);
+            if (succeeded)
+              FilterSize = parsedValue;
+          }
+        }
+      }
+    }
+
+    #region Delete Command
+
     private RelayCommand _DeleteCmd;
+
     /// <summary>
     /// Command for deleting the selected item
     /// </summary>
@@ -67,7 +155,7 @@ namespace FileSizeCounter.Model
     internal bool CanDelete()
     {
       return SelectedElement != null &&
-        SelectedElement.Parent != null;
+             SelectedElement.Parent != null;
     }
 
     internal void OnDeleteSelectedItem()
@@ -94,7 +182,7 @@ namespace FileSizeCounter.Model
         {
           Directory.Delete(SelectedElement.Name, true);
         }
-      
+
         // do this after the file/folder was removed from disk
         parentElement.Remove(SelectedElement);
       }
@@ -104,6 +192,34 @@ namespace FileSizeCounter.Model
           Resources.Message_ApplicationTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
       }
     }
+
+    #endregion
+
+    #region Open in explorer Command
+
+    private RelayCommand _OpenInExplorerCmd;
+
+    public RelayCommand OpenInExplorerCmd
+    {
+      get
+      {
+        if (_OpenInExplorerCmd == null)
+          _OpenInExplorerCmd = new RelayCommand(OnOpenInExplorer);
+
+        return _OpenInExplorerCmd;
+      }
+    }
+
+    private void OnOpenInExplorer()
+    {
+      Debug.Assert(SelectedElement != null);
+
+      Helper.OpenFolderAndSelectFile(SelectedElement.Name);
+    }
+
+    #endregion
+
+    #region Start Inspect Command
 
     private RelayCommand _StartCommand;
 
@@ -125,7 +241,8 @@ namespace FileSizeCounter.Model
     internal bool CanStart()
     {
       return !string.IsNullOrWhiteSpace(TargetDirectory) &&
-             Directory.Exists(TargetDirectory);
+             Directory.Exists(TargetDirectory) &&
+             string.IsNullOrEmpty(Error);
     }
 
     private void Start()
@@ -146,29 +263,74 @@ namespace FileSizeCounter.Model
 
     private FolderElement InspectDirectory()
     {
+      Stack<FolderElement> stack = new Stack<FolderElement>();
       var rootElement = new FolderElement(TargetDirectory);
-      ParseDirectory(TargetDirectory, rootElement);
+      stack.Push(rootElement);
+      
+      while (stack.Count > 0)
+      {
+        var currentFolderElement = stack.Pop();
+        var directoryName = currentFolderElement.Name;
+
+        var fileEntries = Directory.GetFiles(directoryName);
+        foreach (var fileName in fileEntries)
+        {
+          var fileInfo = new FileInfo(fileName);
+          var fileElement = new FileElement(fileName, fileInfo.Length);
+          currentFolderElement.Add(fileElement);
+        }
+
+        var subDirectoryEntries = Directory.GetDirectories(directoryName);
+        foreach (var subDirectory in subDirectoryEntries)
+        {
+          var folderElement = new FolderElement(subDirectory);
+          currentFolderElement.Add(folderElement);
+          
+          stack.Push(folderElement);
+        }
+      }
 
       return rootElement;
     }
 
-    private void ParseDirectory(string directory, FolderElement currentFolderElement)
-    {
-      //TODO: change the recursive to do-while
-      var fileEntries = Directory.GetFiles(directory);
-      foreach (var fileName in fileEntries)
-      {
-        var fileInfo = new FileInfo(fileName);
-        var fileElement = new FileElement(fileName, fileInfo.Length);
-        currentFolderElement.Add(fileElement);
-      }
+    #endregion
 
-      var subDirectoryEntries = Directory.GetDirectories(directory);
-      foreach (var subDirectory in subDirectoryEntries)
+
+    #endregion
+
+    #region IDataErrorInfo Members
+
+    public string Error
+    {
+      get
       {
-        var folderElement = new FolderElement(subDirectory);
-        currentFolderElement.Add(folderElement);
-        ParseDirectory(subDirectory, folderElement);
+        var error = this["TargetDirectory"];
+        if (!string.IsNullOrEmpty(error))
+          return error;
+
+        error = this["SizeFilterValue"];
+        if (!string.IsNullOrEmpty(error))
+          return error;
+
+        return string.Empty;
+      }
+    }
+
+    public string this[string columnName]
+    {
+      get
+      {
+        switch (columnName)
+        {
+          case "TargetDirectory":
+            return Validator.ValidateInspectDirectory(TargetDirectory);
+
+          case "SizeFilterValue":
+            return Validator.ValidateSizeFilterValue(SizeFilterValue);
+
+          default:
+            return string.Empty;
+        }
       }
     }
 

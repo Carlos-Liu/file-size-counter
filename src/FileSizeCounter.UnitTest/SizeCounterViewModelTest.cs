@@ -15,7 +15,7 @@ namespace FileSizeCounter.UnitTest
       Window parentWindow = new Window();
       _SizeCounterViewModel = new SizeCounterViewModel(parentWindow);
     }
-    
+
     [TestMethod]
     public void CanStart_TargetDirectoryIsWhiteSpaceOnly_CannotStart()
     {
@@ -38,6 +38,14 @@ namespace FileSizeCounter.UnitTest
       _SizeCounterViewModel.TargetDirectory = @"C:\Windows\";
       var canStart = _SizeCounterViewModel.CanStart();
       Assert.IsTrue(canStart);
+    }
+
+    [TestMethod]
+    public void CanStart_SizeFilterValueIsInvalid_CannotStart()
+    {
+      _SizeCounterViewModel.SizeFilterValue = "invalid";
+      var canStart = _SizeCounterViewModel.CanStart();
+      Assert.IsFalse(canStart);
     }
 
     [TestMethod]

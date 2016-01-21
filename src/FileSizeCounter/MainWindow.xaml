@@ -26,12 +26,17 @@
       </Grid.RowDefinitions>
 
       <TextBlock Name="Directory" Text="Inspect Directory:"/>
-      <TextBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged}" />
+      <TextBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" 
+               Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
       <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Content="..." MinWidth="30" Click="BrowseButton_OnClick"/>
 
       <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
         <TextBlock Text="Threshold Value (Mb):" />
-        <TextBox Name="ThresholdValueTextBox" MinWidth="50"/>
+        <TextBox Name="ThresholdValueTextBox" MinWidth="50" 
+                 Text="{Binding SizeFilterValue, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" 
+                 PreviewTextInput="ThresholdValueTextBox_OnPreviewTextInput"
+                 ContextMenu="{x:Null}"
+                 CommandManager.PreviewExecuted="ThresholdValueTextBox_OnPreviewExecuted" />
       </StackPanel>
 
       <Button Name="StartButton" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="Start"
@@ -82,8 +87,18 @@
             <StackPanel Orientation="Horizontal" 
                         Tag="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type TreeView}}}">
               <Image Width="16" Height="16" Margin="3,3,3,3" Source="{Binding ImagePath}" />
-              <TextBlock x:Name="elementNameTextBlock" Text="{Binding DisplayString}" />
-              
+              <TextBlock x:Name="elementNameTextBlock" Text="{Binding DisplayString}">
+                <TextBlock.Style>
+                  <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding Path=ShouldBeHighlighted}" Value="True">
+                        <Setter Property="Foreground" Value="Red" />
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </TextBlock.Style>
+              </TextBlock>
+
               <StackPanel.ContextMenu>
                 <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
                   <MenuItem Header="Delete" Command="{Binding DeleteCmd}">

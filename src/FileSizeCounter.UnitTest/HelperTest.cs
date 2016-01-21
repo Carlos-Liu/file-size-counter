@@ -24,5 +24,54 @@ namespace FileSizeCounter.UnitTest
       var isEqual = source.CompareOrdinal(compared, true);
       Assert.IsTrue(isEqual);
     }
+
+    [TestMethod]
+    public void IsValidNumeric_TextIsIntegerValue_ReturnTrue()
+    {
+      bool isValid = Helper.IsValidNumeric("2");
+      Assert.IsTrue(isValid);
+    }
+
+    [TestMethod]
+    public void IsValidNumeric_TextIsFloatValue_ReturnTrue()
+    {
+      bool isValid = Helper.IsValidNumeric("0.5");
+      Assert.IsTrue(isValid);
+    }
+
+    [TestMethod]
+    public void IsValidNumeric_TextIsCharacter_ReturnFalse()
+    {
+      bool isValid = Helper.IsValidNumeric("a");
+      Assert.IsFalse(isValid);
+    }
+
+    [TestMethod]
+    public void IsValidNumeric_TextIsIntegerValueWithDot_ReturnTrue()
+    {
+      bool isValid = Helper.IsValidNumeric("2.");
+      Assert.IsTrue(isValid);
+    }
+
+    [TestMethod]
+    public void IsValidNumeric_TextIsFloatValueWithExtraDot_ReturnFalse()
+    {
+      bool isValid = Helper.IsValidNumeric("2.5.0");
+      Assert.IsFalse(isValid);
+    }
+
+    [TestMethod]
+    public void IsValidNumeric_TextIsFloatValueWithoutLeadingZero_ReturnFalse()
+    {
+      bool isValid = Helper.IsValidNumeric(".2");
+      Assert.IsFalse(isValid);
+    }
+
+    [TestMethod]
+    public void IsValidNumeric_TextIsIntegerValueWithCharacter_ReturnFalse()
+    {
+      bool isValid = Helper.IsValidNumeric("2.k");
+      Assert.IsFalse(isValid);
+    }
   }
 }

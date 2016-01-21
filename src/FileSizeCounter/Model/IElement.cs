@@ -37,7 +37,11 @@ namespace FileSizeCounter.Model
     ///   Parent of the element
     /// </summary>
     IElement Parent { get; set; }
-
+    
+    /// <summary>
+    /// Should the element be highlighted by the filter criteria
+    /// </summary>
+    bool ShouldBeHighlighted { get; set; }
     /// <summary>
     ///   The children elements list
     /// </summary>
