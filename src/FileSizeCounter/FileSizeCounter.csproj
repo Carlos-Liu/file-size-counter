@@ -133,15 +133,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="TODOs.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\app.png" />
+    <Resource Include="Images\browse.png" />
+    <Resource Include="Images\delete.png" />
     <Resource Include="Images\file16.png" />
     <Resource Include="Images\folder16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\info.png" />
     <Resource Include="Images\open-item.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="TODOs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

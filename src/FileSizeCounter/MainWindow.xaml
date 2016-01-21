@@ -6,7 +6,8 @@
         SizeToContent="Width"
         MinHeight="620"
         MinWidth="600" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" 
+        Icon="Images/app.png">
   <Window.Resources>
     <Style BasedOn="{StaticResource NormalTextBlockStyle}" TargetType="TextBlock"/>
   </Window.Resources>
@@ -28,22 +29,40 @@
       <TextBlock Name="Directory" Text="Inspect Directory:"/>
       <TextBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" 
                Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-      <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Content="..." MinWidth="30" Click="BrowseButton_OnClick"/>
+      <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" 
+              Click="BrowseButton_OnClick"  
+              HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button.Content>
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Images/browse.png" Width="16" />
+            <TextBlock Text="Browse..." />
+          </StackPanel>
+        </Button.Content>
+      </Button>
 
       <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-        <TextBlock Text="Threshold Value (Mb):" />
+        <TextBlock Text="Filter Size (Mb):" />
         <TextBox Name="ThresholdValueTextBox" MinWidth="50" 
                  Text="{Binding SizeFilterValue, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" 
                  PreviewTextInput="ThresholdValueTextBox_OnPreviewTextInput"
                  ContextMenu="{x:Null}"
-                 CommandManager.PreviewExecuted="ThresholdValueTextBox_OnPreviewExecuted" />
+                 CommandManager.PreviewExecuted="ThresholdValueTextBox_OnPreviewExecuted"
+                 ToolTip="Highlight the item which size is larger than this value"/>
       </StackPanel>
 
-      <Button Name="StartButton" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Content="Start"
-            Command="{Binding StartCmd}"/>
+      <Button Name="StartButton" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right"
+            Command="{Binding StartCmd}">
+        <Button.Content>
+          <StackPanel Orientation="Horizontal">
+            <Image Source="Images/browse.png" Width="16" />
+            <TextBlock Text="Start Inspection" />
+          </StackPanel>
+        </Button.Content>
+      </Button>
 
       <TreeView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
                 Name="ResultTreeView"
+                Margin="4,10,4,4"
                 SelectedItemChanged="ResultTreeView_OnSelectedItemChanged"
                 ItemsSource="{Binding ElementList}"
                 BorderThickness="1"
