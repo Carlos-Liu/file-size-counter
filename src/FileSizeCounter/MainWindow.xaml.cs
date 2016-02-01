@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FileSizeCounter.Model;
@@ -75,6 +80,36 @@ namespace FileSizeCounter
       {
         e.Handled = true;
       }
+    }
+
+    private void InspectDirectoryTextBox_OnPopulating(object sender, PopulatingEventArgs e)
+    {
+      string text = InspectDirectoryTextBox.Text;
+      string directoryInfo;
+      try
+      {
+        directoryInfo = Path.GetDirectoryName(text);
+      }
+      catch (Exception)
+      {
+        throw;
+      }
+      Contract.Assert(directoryInfo != null, "directoryInfo != null");
+
+      if (!Directory.Exists(Path.GetDirectoryName(directoryInfo))) return;
+
+      string[] dirs = Directory.GetDirectories(directoryInfo, "*.*", SearchOption.TopDirectoryOnly);
+      var candidates = new List<string>();
+
+      Array.ForEach(new[] { dirs }, x =>
+        Array.ForEach(x, y =>
+        {
+          if (y.StartsWith(directoryInfo, StringComparison.CurrentCultureIgnoreCase))
+            candidates.Add(y);
+        }));
+
+      InspectDirectoryTextBox.ItemsSource = candidates;
+      InspectDirectoryTextBox.PopulateComplete();
     }
   }
 }
