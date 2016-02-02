@@ -108,6 +108,17 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error occurred while parsing the directory.
+        ///
+        ///Detail error information: {0}.
+        /// </summary>
+        internal static string Message_Error_ParsingDirectoryFailed {
+            get {
+                return ResourceManager.GetString("Message_Error_ParsingDirectoryFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only valid numeric value can be accepted, e.g. 2, 1.5 etc..
         /// </summary>
         internal static string Message_Error_SizeFilterValueInvalid {

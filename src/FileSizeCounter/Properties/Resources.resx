@@ -146,4 +146,9 @@ Detail error information: {1}</value>
   <data name="Message_Error_SizeFilterValueInvalid" xml:space="preserve">
     <value>Only valid numeric value can be accepted, e.g. 2, 1.5 etc.</value>
   </data>
+  <data name="Message_Error_ParsingDirectoryFailed" xml:space="preserve">
+    <value>Error occurred while parsing the directory.
+
+Detail error information: {0}</value>
+  </data>
 </root>

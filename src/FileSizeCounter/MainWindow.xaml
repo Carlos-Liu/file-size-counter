@@ -20,6 +20,7 @@
         <ColumnDefinition Width="Auto"/>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
@@ -28,34 +29,37 @@
       </Grid.RowDefinitions>
 
       <TextBlock Name="DirectoryTextBlock" Text="Inspect Directory:"/>
-      <toolkit:AutoCompleteBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" 
+      <toolkit:AutoCompleteBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" Margin="4"
                                Populating="InspectDirectoryTextBox_OnPopulating"
                                SelectedItem="{Binding TargetDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                />
-      <!--<TextBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" 
-               Text="{Binding TargetDirectory, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />-->
-      <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" 
+      
+      <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Margin="-4,4,4,4"
+              Height="{Binding ElementName=InspectDirectoryTextBox, Path=ActualHeight}"
               Click="BrowseButton_OnClick"  
-              HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button.Content>
-          <StackPanel Orientation="Horizontal">
-            <Image Source="Images/browse.png" Width="16" />
-            <TextBlock Text="Browse..." />
-          </StackPanel>
-        </Button.Content>
-      </Button>
+              Content="..."
+              HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-      <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-        <TextBlock Text="Filter Size (Mb):" />
-        <TextBox Name="ThresholdValueTextBox" MinWidth="50" 
+      <TextBlock Text="Filter Size (Mb):" Grid.Row="1" Grid.Column="0" />
+
+      <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+        <TextBox Name="ThresholdValueTextBox" MinWidth="50" MaxWidth="100" 
+               HorizontalAlignment="Left"
                  Text="{Binding SizeFilterValue, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" 
                  PreviewTextInput="ThresholdValueTextBox_OnPreviewTextInput"
                  ContextMenu="{x:Null}"
                  CommandManager.PreviewExecuted="ThresholdValueTextBox_OnPreviewExecuted"
                  ToolTip="Highlight the item which size is larger than this value"/>
+
+        <Button Name="RefreshButton" Margin="-4,4,4,4"
+              Height="{Binding ElementName=ThresholdValueTextBox, Path=ActualHeight}">
+          <Button.Content>
+            <Image Source="Images/refresh.png" Width="16" Margin="-10"></Image>
+          </Button.Content>
+          </Button>
       </StackPanel>
 
-      <Button Name="StartButton" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right"
+      <Button Name="StartButton" Grid.Row="0" Grid.Column="3" Grid.RowSpan="2"
             Command="{Binding StartCmd}">
         <Button.Content>
           <StackPanel Orientation="Horizontal">
@@ -65,7 +69,7 @@
         </Button.Content>
       </Button>
 
-      <TreeView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" 
+      <TreeView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" 
                 Name="ResultTreeView"
                 Margin="4,10,4,4"
                 SelectedItemChanged="ResultTreeView_OnSelectedItemChanged"

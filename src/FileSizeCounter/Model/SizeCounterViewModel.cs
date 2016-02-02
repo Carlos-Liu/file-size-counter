@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -258,7 +257,12 @@ namespace FileSizeCounter.Model
         ElementList.Add(result);
         result.IsExpanded = true;
       }
-      //TODO: what about the case failed
+      else
+      {
+        MessageBox.Show(
+          string.Format(Resources.Message_Error_ParsingDirectoryFailed, busyWindow.ExecutionException.Message),
+          Resources.Message_ApplicationTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+      }
     }
 
     private FolderElement InspectDirectory()
@@ -269,10 +273,12 @@ namespace FileSizeCounter.Model
       
       while (stack.Count > 0)
       {
+        try
+        {
         var currentFolderElement = stack.Pop();
         var directoryName = currentFolderElement.Name;
 
-        var fileEntries = Directory.GetFiles(directoryName);
+        var fileEntries = Directory.EnumerateFiles(directoryName);
         foreach (var fileName in fileEntries)
         {
           var fileInfo = new FileInfo(fileName);
@@ -280,13 +286,19 @@ namespace FileSizeCounter.Model
           currentFolderElement.Add(fileElement);
         }
 
-        var subDirectoryEntries = Directory.GetDirectories(directoryName);
+        var subDirectoryEntries = Directory.EnumerateDirectories(directoryName);
         foreach (var subDirectory in subDirectoryEntries)
         {
           var folderElement = new FolderElement(subDirectory);
           currentFolderElement.Add(folderElement);
           
           stack.Push(folderElement);
+        }
+
+        }
+        catch (UnauthorizedAccessException)
+        {
+          // swallow the exception here
         }
       }
 
