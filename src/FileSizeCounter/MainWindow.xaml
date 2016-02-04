@@ -69,7 +69,7 @@
             Command="{Binding StartCmd}">
         <Button.Content>
           <StackPanel Orientation="Horizontal">
-            <Image Source="Images/browse.png" Width="16" />
+            <Image Source="Images/inspect.png" Width="32" />
             <TextBlock Text="Start Inspection" />
           </StackPanel>
         </Button.Content>
