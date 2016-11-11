@@ -35,9 +35,8 @@
       </Grid.RowDefinitions>
 
       <TextBlock Name="DirectoryTextBlock" Text="Inspect Directory:"/>
-      <toolkit:AutoCompleteBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" Margin="4"
-                               Populating="InspectDirectoryTextBox_OnPopulating"
-                               SelectedItem="{Binding TargetDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+      <TextBox Grid.Row="0" Grid.Column="1" Name="InspectDirectoryTextBox" Margin="4"
+                               Text="{Binding TargetDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                                />
       
       <Button Grid.Row="0" Grid.Column="2" Name="BrowseButton" Margin="-4,4,4,4"

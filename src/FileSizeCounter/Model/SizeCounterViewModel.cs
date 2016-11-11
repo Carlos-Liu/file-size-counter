@@ -18,7 +18,7 @@ namespace FileSizeCounter.Model
     {
       Debug.Assert(ownerWindow != null);
 
-      TargetDirectory = @"C:\Users\zliu02\Downloads";
+      TargetDirectory = @"C:\";
       OwnerWindow = ownerWindow;
       FilterSize = DefaultFilterSize;
     }
@@ -60,25 +60,6 @@ namespace FileSizeCounter.Model
               }
             }
           }
-
-            //var collection = ElementList;
-
-            //while (collection.Count > 0)
-            //{
-            //  foreach (var element in collection)
-            //  {
-            //    // clear previous settings
-            //    element.ShouldBeHighlighted = false;
-            //    // in bytes
-            //    if (element.Size > (value * 1024 * 1024))
-            //    {
-            //      element.ShouldBeHighlighted = true;
-            //    }
-
-            //    collection = element.Children;
-            //  }
-            //}
-          //}
         }
       }
     }
