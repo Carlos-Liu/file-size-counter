@@ -79,6 +79,15 @@ namespace Res {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Counting the file/folder size.
+        /// </summary>
+        internal static string Message_BusyIndicator_Title {
+            get {
+                return ResourceManager.GetString("Message_BusyIndicator_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file or folder will be deleted permanently (bypassing the recycle bin), are you sure you want to delete it?.
         /// </summary>
         internal static string Message_DeleteFileConfirmMsg {

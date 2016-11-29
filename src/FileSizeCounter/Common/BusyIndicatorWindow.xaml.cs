@@ -37,6 +37,18 @@ namespace FileSizeCounter.Common
     public bool? IsSuccessfullyExecuted { get; private set; }
 
     /// <summary>
+    /// Show the processing element prompt message
+    /// </summary>
+    /// <param name="elementName"></param>
+    public void ShowCurrentProgressingElement(string elementName)
+    {
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            ProgressingTextBlock.Text = elementName;
+        });
+    }
+
+    /// <summary>
     ///   Start to execute the <paramref name="functionToRunInAnotherThread" />, and
     ///   show the waiting dialog.
     /// </summary>

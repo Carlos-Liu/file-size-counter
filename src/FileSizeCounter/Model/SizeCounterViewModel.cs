@@ -14,6 +14,7 @@ namespace FileSizeCounter.Model
   public class SizeCounterViewModel : ObservableObject, IDataErrorInfo
   {
     private const double DefaultFilterSize = double.MaxValue;
+    private BusyIndicatorWindow _BusyWindow;
     public SizeCounterViewModel(Window ownerWindow)
     {
       Debug.Assert(ownerWindow != null);
@@ -229,11 +230,11 @@ namespace FileSizeCounter.Model
     {
       ElementList.Clear();
 
-      var message = "Counting the file/folder size";
-      var busyWindow = new BusyIndicatorWindow();
+      var message = Resources.Message_BusyIndicator_Title;
+      _BusyWindow = new BusyIndicatorWindow();
 
-      var result = busyWindow.ExecuteAndWait(OwnerWindow, message, InspectDirectory);
-      if (busyWindow.IsSuccessfullyExecuted == true)
+      var result = _BusyWindow.ExecuteAndWait(OwnerWindow, message, InspectDirectory);
+      if (_BusyWindow.IsSuccessfullyExecuted == true)
       {
         ElementList.Add(result);
         result.IsExpanded = true;
@@ -241,7 +242,7 @@ namespace FileSizeCounter.Model
       else
       {
         MessageBox.Show(
-          string.Format(Resources.Message_Error_ParsingDirectoryFailed, busyWindow.ExecutionException.Message),
+          string.Format(Resources.Message_Error_ParsingDirectoryFailed, _BusyWindow.ExecutionException.Message),
           Resources.Message_ApplicationTitle, MessageBoxButton.OK, MessageBoxImage.Error);
       }
     }
@@ -254,33 +255,41 @@ namespace FileSizeCounter.Model
       
       while (stack.Count > 0)
       {
-        try
-        {
-        var currentFolderElement = stack.Pop();
-        var directoryName = currentFolderElement.Name;
+          try
+          {
+              var currentFolderElement = stack.Pop();
+              var directoryName = currentFolderElement.Name;
 
-        var fileEntries = Directory.EnumerateFiles(directoryName);
-        foreach (var fileName in fileEntries)
-        {
-          var fileInfo = new FileInfo(fileName);
-          var fileElement = new FileElement(fileName, fileInfo.Length);
-          currentFolderElement.Add(fileElement);
-        }
+              var fileEntries = Directory.EnumerateFiles(directoryName);
+              foreach (var fileName in fileEntries)
+              {
+                  var fileInfo = new FileInfo(fileName);
+                  var fileElement = new FileElement(fileName, fileInfo.Length);
+                  currentFolderElement.Add(fileElement);
 
-        var subDirectoryEntries = Directory.EnumerateDirectories(directoryName);
-        foreach (var subDirectory in subDirectoryEntries)
-        {
-          var folderElement = new FolderElement(subDirectory);
-          currentFolderElement.Add(folderElement);
-          
-          stack.Push(folderElement);
-        }
+                  _BusyWindow.ShowCurrentProgressingElement(fileName);
+              }
 
-        }
-        catch (UnauthorizedAccessException)
-        {
-          // swallow the exception here
-        }
+              var subDirectoryEntries = Directory.EnumerateDirectories(directoryName);
+              foreach (var subDirectory in subDirectoryEntries)
+              {
+                  var folderElement = new FolderElement(subDirectory);
+                  currentFolderElement.Add(folderElement);
+
+                  _BusyWindow.ShowCurrentProgressingElement(subDirectory);
+
+                  stack.Push(folderElement);
+              }
+
+          }
+          catch (UnauthorizedAccessException ex)
+          {
+              // swallow the exception here
+          }
+          catch (FileNotFoundException ex)
+          {
+              
+          }
       }
 
       return rootElement;

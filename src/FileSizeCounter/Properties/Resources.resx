@@ -151,4 +151,7 @@ Detail error information: {1}</value>
 
 Detail error information: {0}</value>
   </data>
+  <data name="Message_BusyIndicator_Title" xml:space="preserve">
+    <value>Counting the file/folder size</value>
+  </data>
 </root>
