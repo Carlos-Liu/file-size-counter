@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Windows;
 using FileSizeCounter.Common;
 using FileSizeCounter.MicroMvvm;
@@ -66,7 +67,7 @@ namespace FileSizeCounter.Model
     }
 
     public IElement SelectedElement { get; set; }
-    
+
     #region Data bindings
 
     private readonly ObservableCollection<IElement> _ElementList = new ObservableCollection<IElement>();
@@ -115,7 +116,65 @@ namespace FileSizeCounter.Model
       }
     }
 
-    #region Delete Command
+      /// <summary>
+      /// The process result message
+      /// </summary>
+      public string ProcessResult
+      {
+          get { return _ProcessResult; }
+          set
+          {
+              if(!_ProcessResult.CompareOrdinal(value))
+              {
+                  _ProcessResult = value;
+                  RaisePropertyChanged();
+              }
+          }
+      }
+
+      /// <summary>
+      /// The detailed error message for the processing
+      /// </summary>
+      public string ProcessDetailedErrors
+      {
+          get { return _ProcessDetailedErrors; }
+          set
+          {
+              _ProcessDetailedErrors = value;
+
+
+              if (string.IsNullOrWhiteSpace(value))
+              {
+                  ProcessResult = Resources.Message_ParseResult_Succeeded;
+                  ProcessResultIconFile = "Images/success.png";
+              }
+              else
+              {
+                  ProcessResult = Resources.Message_ParseResult_Failed;
+                  ProcessResultIconFile = "Images/success-with-error.png";
+              }
+
+              RaisePropertyChanged();
+          }
+      }
+
+      /// <summary>
+      /// The icon file that represents the process result
+      /// </summary>
+      public string ProcessResultIconFile
+      {
+          get { return _ProcessResultIconFile; }
+          set
+          {
+              if (!_ProcessResultIconFile.CompareOrdinal(value))
+              {
+                  _ProcessResultIconFile = value;
+                  RaisePropertyChanged();
+              }
+          }
+      }
+
+      #region Delete Command
 
     private RelayCommand _DeleteCmd;
 
@@ -203,8 +262,11 @@ namespace FileSizeCounter.Model
     #region Start Inspect Command
 
     private RelayCommand _StartCommand;
+      private string _ProcessResult;
+      private string _ProcessDetailedErrors;
+      private string _ProcessResultIconFile;
 
-    /// <summary>
+      /// <summary>
     ///   Command for the start action
     /// </summary>
     public RelayCommand StartCmd
@@ -252,6 +314,7 @@ namespace FileSizeCounter.Model
       Stack<FolderElement> stack = new Stack<FolderElement>();
       var rootElement = new FolderElement(TargetDirectory);
       stack.Push(rootElement);
+        var errors = new StringBuilder();
       
       while (stack.Count > 0)
       {
@@ -284,13 +347,19 @@ namespace FileSizeCounter.Model
           }
           catch (UnauthorizedAccessException ex)
           {
-              // swallow the exception here
+              errors.AppendLine(ex.Message);
           }
           catch (FileNotFoundException ex)
           {
-              
+              errors.AppendLine(ex.Message);
+          }
+          catch (Exception ex)
+          {
+              errors.AppendLine(ex.Message);
           }
       }
+
+        ProcessDetailedErrors = errors.ToString();
 
       return rootElement;
     }

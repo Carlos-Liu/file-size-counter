@@ -133,7 +133,7 @@
     <value>The file or folder will be deleted permanently (bypassing the recycle bin), are you sure you want to delete it?</value>
   </data>
   <data name="Message_ApplicationTitle" xml:space="preserve">
-    <value>File Size Counter</value>
+    <value>File Size Inspector</value>
   </data>
   <data name="Message_Error_FailToDeletePrompt" xml:space="preserve">
     <value>Failed to delete the item '{0}', please make you have the permission to delete it.
@@ -147,11 +147,17 @@ Detail error information: {1}</value>
     <value>Only valid numeric value can be accepted, e.g. 2, 1.5 etc.</value>
   </data>
   <data name="Message_Error_ParsingDirectoryFailed" xml:space="preserve">
-    <value>Error occurred while parsing the directory.
+    <value>Error occurred while inspecting the directory.
 
 Detail error information: {0}</value>
   </data>
   <data name="Message_BusyIndicator_Title" xml:space="preserve">
-    <value>Counting the file/folder size</value>
+    <value>Inspecting the file/folder size</value>
+  </data>
+  <data name="Message_ParseResult_Failed" xml:space="preserve">
+    <value>Error occurred during the inspecting process. Please see the tooltip from the left icon to get detailed information.</value>
+  </data>
+  <data name="Message_ParseResult_Succeeded" xml:space="preserve">
+    <value>Inspect successful.</value>
   </data>
 </root>

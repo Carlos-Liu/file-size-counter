@@ -5,8 +5,8 @@
         xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         Title="File Size Counter" 
         SizeToContent="Width"
-        MinHeight="620"
-        MinWidth="600" 
+        MinHeight="706"
+        MinWidth="662" 
         WindowStartupLocation="CenterScreen" 
         Icon="Images/app.png">
   <Window.Resources>
@@ -32,6 +32,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
 
       <TextBlock Name="DirectoryTextBlock" Text="Inspect Directory:"/>
@@ -155,6 +156,25 @@
         </TreeView.ItemTemplate>
         
       </TreeView>
+        
+        <StatusBar x:Name="ParsingStatusBar" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="4">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem Grid.Column="0">
+                    <Image Width="16" Height="16" ToolTip="{Binding ProcessDetailedErrors}" Source="{Binding ProcessResultIconFile, TargetNullValue={x:Null}}"/>
+                </StatusBarItem>
+                <StatusBarItem Grid.Column="1">
+                    <TextBlock Text="{Binding ProcessResult}" Margin="3"/>
+                </StatusBarItem>
+            </StatusBar>
     </Grid>
   </Grid>
 </Window>

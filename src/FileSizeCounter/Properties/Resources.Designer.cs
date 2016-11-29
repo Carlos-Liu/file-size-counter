@@ -70,7 +70,7 @@ namespace Res {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Size Counter.
+        ///   Looks up a localized string similar to File Size Inspector.
         /// </summary>
         internal static string Message_ApplicationTitle {
             get {
@@ -79,7 +79,7 @@ namespace Res {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Counting the file/folder size.
+        ///   Looks up a localized string similar to Inspecting the file/folder size.
         /// </summary>
         internal static string Message_BusyIndicator_Title {
             get {
@@ -117,7 +117,7 @@ namespace Res {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error occurred while parsing the directory.
+        ///   Looks up a localized string similar to Error occurred while inspecting the directory.
         ///
         ///Detail error information: {0}.
         /// </summary>
@@ -133,6 +133,24 @@ namespace Res {
         internal static string Message_Error_SizeFilterValueInvalid {
             get {
                 return ResourceManager.GetString("Message_Error_SizeFilterValueInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error occurred during the inspecting process. Please see the tooltip from the left icon to get detailed information..
+        /// </summary>
+        internal static string Message_ParseResult_Failed {
+            get {
+                return ResourceManager.GetString("Message_ParseResult_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inspect successful..
+        /// </summary>
+        internal static string Message_ParseResult_Succeeded {
+            get {
+                return ResourceManager.GetString("Message_ParseResult_Succeeded", resourceCulture);
             }
         }
         

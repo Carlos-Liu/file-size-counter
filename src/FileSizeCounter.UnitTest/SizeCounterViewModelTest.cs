@@ -78,6 +78,35 @@ namespace FileSizeCounter.UnitTest
       Assert.IsTrue(canDelete);
     }
 
+    [TestMethod]
+    public void ProcessResult_ByDefault_DefaultValueIsNull()
+    {
+        Assert.IsNull(_SizeCounterViewModel.ProcessResult);
+    }
+
+    [TestMethod]
+    public void ProcessDetailedErrors_ByDefault_DefaultValueIsNull()
+    {
+        Assert.IsNull(_SizeCounterViewModel.ProcessDetailedErrors);
+    }
+
+    [TestMethod]
+    public void ProcessDetailedErrors_ErrorIsNull_ProcessResultShowSuccessful()
+    {
+        _SizeCounterViewModel.ProcessDetailedErrors = null;
+        Assert.AreEqual("Inspect successful.", _SizeCounterViewModel.ProcessResult);
+    }
+
+    [TestMethod]
+    public void ProcessDetailedErrors_ErrorIsNotNull_ProcessResultShowErrorPrompt()
+    {
+        _SizeCounterViewModel.ProcessDetailedErrors = "fake error.";
+        Assert.AreEqual(
+            "Error occurred during the inspecting process. Please see the tooltip from the left icon to get detailed information.", 
+            _SizeCounterViewModel.ProcessResult);
+    }
+
+
     // Initialize the directories as below
     // - root
     //    - root-file1.text
