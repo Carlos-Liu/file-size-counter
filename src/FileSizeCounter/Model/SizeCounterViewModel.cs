@@ -15,22 +15,20 @@ namespace FileSizeCounter.Model
   public class SizeCounterViewModel : ObservableObject, IDataErrorInfo
   {
     private const double DefaultFilterSize = double.MaxValue;
-    private BusyIndicatorWindow _BusyWindow;
-    public SizeCounterViewModel(Window ownerWindow)
-    {
-      Debug.Assert(ownerWindow != null);
+    private readonly IBusyIndicatorWindow _BusyWindow;
 
-      TargetDirectory = @"C:\";
-      OwnerWindow = ownerWindow;
-      FilterSize = DefaultFilterSize;
+    public SizeCounterViewModel(IBusyIndicatorWindow busyIndicatorWindow)
+    {
+        TargetDirectory = @"C:\";
+        FilterSize = DefaultFilterSize;
+        _BusyWindow = busyIndicatorWindow;
     }
 
     private string _SizeFilterValue;
-    private Window OwnerWindow { get; set; }
 
     private double _FilterSize;
 
-    private double FilterSize
+    public double FilterSize
     {
       get { return _FilterSize; }
       set
@@ -293,9 +291,8 @@ namespace FileSizeCounter.Model
       ElementList.Clear();
 
       var message = Resources.Message_BusyIndicator_Title;
-      _BusyWindow = new BusyIndicatorWindow();
 
-      var result = _BusyWindow.ExecuteAndWait(OwnerWindow, message, InspectDirectory);
+      var result = _BusyWindow.ExecuteAndWait(message, InspectDirectory);
       if (_BusyWindow.IsSuccessfullyExecuted == true)
       {
         ElementList.Add(result);
@@ -330,7 +327,7 @@ namespace FileSizeCounter.Model
                   var fileElement = new FileElement(fileName, fileInfo.Length);
                   currentFolderElement.Add(fileElement);
 
-                  _BusyWindow.ShowCurrentProgressingElement(fileName);
+                  _BusyWindow.ShowCurrentInspectingElement(fileName);
               }
 
               var subDirectoryEntries = Directory.EnumerateDirectories(directoryName);
@@ -339,7 +336,7 @@ namespace FileSizeCounter.Model
                   var folderElement = new FolderElement(subDirectory);
                   currentFolderElement.Add(folderElement);
 
-                  _BusyWindow.ShowCurrentProgressingElement(subDirectory);
+                  _BusyWindow.ShowCurrentInspectingElement(subDirectory);
 
                   stack.Push(folderElement);
               }

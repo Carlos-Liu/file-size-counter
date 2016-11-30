@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using FileSizeCounter.Common;
 using FileSizeCounter.Model;
 using Winforms = System.Windows.Forms;
 
@@ -11,12 +12,15 @@ namespace FileSizeCounter
   /// </summary>
   public partial class MainWindow
   {
-    public SizeCounterViewModel ViewModel { get; private set; }
+    private SizeCounterViewModel ViewModel { get; set; }
+    private IBusyIndicatorWindow BusyIndicatorWindow { get; set; }
+
     public MainWindow()
     {
       InitializeComponent();
 
-      ViewModel = new SizeCounterViewModel(this);
+      BusyIndicatorWindow = new BusyIndicatorWindow(this);
+      ViewModel = new SizeCounterViewModel(BusyIndicatorWindow);
       DataContext = ViewModel;
     }
 

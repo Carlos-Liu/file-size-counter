@@ -1,4 +1,5 @@
-﻿using FileSizeCounter.Model;
+﻿using System;
+using FileSizeCounter.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FileSizeCounter.UnitTest
@@ -59,6 +60,29 @@ namespace FileSizeCounter.UnitTest
 
       var actual = fileElement.DisplaySize;
       Assert.AreEqual("1.0 G", actual);
+    }
+
+    [TestMethod]
+    public void Children_ForFileElement_NoChildren()
+    {
+        var fileElement = new FileElement("file1.text", 100);
+        Assert.AreEqual(0, fileElement.Children.Count);
+    }
+
+    [TestMethod]
+    public void ImagePath_ForFileElement_ImageIsRight()
+    {
+        var fileElement = new FileElement("file1.text", 100);
+        Assert.AreEqual(@"Images\file16.png", fileElement.ImagePath);
+    }
+      
+    [ExpectedException(typeof(NotSupportedException))]
+    [TestMethod]
+    public void Remove_Call_ExceptionIsThrown()
+    {
+        var fileElement = new FileElement("file1.text", 100);
+
+        fileElement.Remove(null);
     }
   }
 }

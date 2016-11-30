@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FileSizeCounter.UnitTest
 {
@@ -72,6 +73,20 @@ namespace FileSizeCounter.UnitTest
     {
       bool isValid = Helper.IsValidNumeric("2.k");
       Assert.IsFalse(isValid);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void OpenFolderAndSelectFile_FilePathIsNull_ExceptionIsThrown()
+    {
+        Helper.OpenFolderAndSelectFile(null);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void OpenFolderAndSelectFile_FilePathIsWhitespaceOnly_ExceptionIsThrown()
+    {
+        Helper.OpenFolderAndSelectFile("   ");
     }
   }
 }

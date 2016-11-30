@@ -38,8 +38,10 @@ namespace FileSizeCounter
     /// <param name="filePath"></param>
     public static void OpenFolderAndSelectFile(string filePath)
     {
-      if (filePath == null)
-        throw new ArgumentNullException("filePath");
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            throw new ArgumentNullException("filePath");
+        }
 
       IntPtr pidl = ILCreateFromPathW(filePath);
       SHOpenFolderAndSelectItems(pidl, 0, IntPtr.Zero, 0);

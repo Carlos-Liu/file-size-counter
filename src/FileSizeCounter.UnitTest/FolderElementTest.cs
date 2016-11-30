@@ -364,5 +364,11 @@ namespace FileSizeCounter.UnitTest
     }
 
     #endregion
+
+    [TestMethod]
+    public void ImagePath_ForFolderElement_ImageIsRight()
+    {
+        Assert.AreEqual(@"Images\folder16.png", _FolderElementTested.ImagePath);
+    }
   }
 }
