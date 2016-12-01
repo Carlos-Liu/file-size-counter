@@ -370,5 +370,11 @@ namespace FileSizeCounter.UnitTest.Model
     {
         Assert.AreEqual(@"Images\folder16.png", _FolderElementTested.ImagePath);
     }
+
+    [TestMethod]
+    public void IsVisible_ByDefault_IsTrue()
+    {
+        Assert.IsTrue(_FolderElementTested.IsVisible);
+    }
   }
 }

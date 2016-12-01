@@ -30,6 +30,12 @@ namespace FileSizeCounter.UnitTest.Model
         {
             Assert.AreEqual(double.MaxValue, _SizeCounterViewModel.FilterSize);
         }
+
+        [TestMethod]
+        public void HideSmallerElements_ByDefault_IsFalse()
+        {
+            Assert.IsFalse(_SizeCounterViewModel.HideSmallerElements);
+        }
         
         [TestMethod]
         public void CanStart_TargetDirectoryIsWhiteSpaceOnly_CannotStart()

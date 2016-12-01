@@ -42,6 +42,11 @@ namespace FileSizeCounter.Model
     /// Should the element be highlighted by the filter criteria
     /// </summary>
     bool ShouldBeHighlighted { get; set; }
+
+    /// <summary>
+    /// Gets/sets if the element is visible on the view.
+    /// </summary>
+    bool IsVisible { get; set; }
     /// <summary>
     ///   The children elements list
     /// </summary>

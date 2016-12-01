@@ -36,7 +36,7 @@ namespace FileSizeCounter.UnitTest.Model
     }
 
     [TestMethod]
-    public void DisplaySize_FileIsMaximumKBytes_DisplayKbFormat()
+    public void DisplaySize_FileIsJustLessThan1MB_DisplayKbFormat()
     {
       var fileElement = new FileElement("file1.text", 1024*1024 - 1);
 
@@ -45,7 +45,7 @@ namespace FileSizeCounter.UnitTest.Model
     }
 
     [TestMethod]
-    public void DisplaySize_FileIsMinMBytes_DisplayMbFormat()
+    public void DisplaySize_FileIsJustLargerThan1MB_DisplayMbFormat()
     {
       var fileElement = new FileElement("file1.text", 1024*1024 + 1);
 
@@ -54,12 +54,21 @@ namespace FileSizeCounter.UnitTest.Model
     }
 
     [TestMethod]
-    public void DisplaySize_FileIsMaximumMBytes_DisplayGbFormat()
+    public void DisplaySize_FileIsJustLessThan1GB_DisplayMbFormat()
     {
       var fileElement = new FileElement("file1.text", 1024*1024*1024 - 1);
 
       var actual = fileElement.DisplaySize;
       Assert.AreEqual("1024.0 MB", actual);
+    }
+
+    [TestMethod]
+    public void DisplaySize_FileIsJustLargerThan1GB_DisplayGbFormat()
+    {
+        var fileElement = new FileElement("file1.text", 1024 * 1024 * 1024 + 1);
+
+        var actual = fileElement.DisplaySize;
+        Assert.AreEqual("1.0 GB", actual);
     }
 
     [TestMethod]
@@ -83,6 +92,13 @@ namespace FileSizeCounter.UnitTest.Model
         var fileElement = new FileElement("file1.text", 100);
 
         fileElement.Remove(null);
+    }
+
+    [TestMethod]
+    public void IsVisible_ByDefault_IsTrue()
+    {
+        var fileElement = new FileElement("file1.text", 100);
+        Assert.IsTrue(fileElement.IsVisible);
     }
   }
 }

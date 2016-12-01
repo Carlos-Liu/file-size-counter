@@ -46,29 +46,7 @@ namespace FileSizeCounter.Model
                     return;
                 }
 
-                Stack<FolderElement> stack = new Stack<FolderElement>();
-                stack.Push(ElementList[0] as FolderElement);
-
-                while (stack.Count > 0)
-                {
-                    var currentFolder = stack.Pop();
-                    foreach (var element in currentFolder.Children)
-                    {
-                        // clear previous settings
-                        element.ShouldBeHighlighted = false;
-                        // in bytes
-                        if (element.Size > (value * 1024 * 1024))
-                        {
-                            element.ShouldBeHighlighted = true;
-
-                            if (element is FolderElement)
-                            {
-                                stack.Push(element as FolderElement);
-                            }
-                        }
-                    }
-                }
-
+                RefreshElementsVisibilities();
             }
         }
 
@@ -118,6 +96,34 @@ namespace FileSizeCounter.Model
                         if (succeeded)
                             FilterSize = parsedValue;
                     }
+                }
+            }
+        }
+
+        public bool HideSmallerElements
+        {
+            get { return _HideSmallerElements; }
+            set
+            {
+                if (_HideSmallerElements != value)
+                {
+                    _HideSmallerElements = value;
+                    RefreshElementsVisibilities();
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public bool HighlightElements
+        {
+            get { return _HighlightElements; }
+            set
+            {
+                if (_HighlightElements != value)
+                {
+                    _HighlightElements = value;
+                    RefreshElementsVisibilities();
+                    RaisePropertyChanged();
                 }
             }
         }
@@ -271,6 +277,8 @@ namespace FileSizeCounter.Model
         private string _ProcessResult;
         private string _ProcessDetailedErrors;
         private string _ProcessResultIconFile;
+        private bool _HideSmallerElements;
+        private bool _HighlightElements;
 
         /// <summary>
         ///   Command for the start action
@@ -305,6 +313,8 @@ namespace FileSizeCounter.Model
             {
                 ElementList.Add(result);
                 result.IsExpanded = true;
+
+                RefreshElementsVisibilities();
             }
             else
             {
@@ -373,6 +383,49 @@ namespace FileSizeCounter.Model
 
 
         #endregion
+
+        private void RefreshElementsVisibilities()
+        {
+            if (ElementList.Count == 0)
+            {
+                return;
+            }
+
+            Stack<FolderElement> stack = new Stack<FolderElement>();
+            stack.Push(ElementList[0] as FolderElement);
+
+            while (stack.Count > 0)
+            {
+                var currentFolder = stack.Pop();
+                foreach (var element in currentFolder.Children)
+                {
+                    // clear previous settings
+                    element.ShouldBeHighlighted = false;
+                    element.IsVisible = true;
+
+                    // in bytes
+                    if (element.Size >= (FilterSize * 1024 * 1024))
+                    {
+                        if (HighlightElements)
+                        {
+                            element.ShouldBeHighlighted = true;
+                        }
+
+                        if (element is FolderElement)
+                        {
+                            stack.Push(element as FolderElement);
+                        }
+                    }
+                    else
+                    {
+                        if (HideSmallerElements)
+                        {
+                            element.IsVisible = false;
+                        }
+                    }
+                }
+            }
+        }
 
         #region IDataErrorInfo Members
 

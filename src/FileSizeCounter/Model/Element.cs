@@ -60,6 +60,19 @@ namespace FileSizeCounter.Model
 
     public IElement Parent { get; set; }
 
+    public bool IsVisible
+    {
+        get { return _IsVisible; }
+        set
+        {
+            if (_IsVisible != value)
+            {
+                _IsVisible = value;
+                RaisePropertyChanged();
+            }
+        }
+    }
+
     public abstract ObservableCollection<IElement> Children { get; }
 
     public abstract void Remove(IElement elementToBeRemoved);
@@ -74,8 +87,9 @@ namespace FileSizeCounter.Model
     private bool _IsExpanded;
     private bool _IsSelected;
     private bool _ShouldBeHighlighted;
+    private bool _IsVisible = true;
 
-    /// <summary>
+      /// <summary>
     ///   Gets/sets whether the TreeViewItem
     ///   associated with this object is expanded.
     /// </summary>
