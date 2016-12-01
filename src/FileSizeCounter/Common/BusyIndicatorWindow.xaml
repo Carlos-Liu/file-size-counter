@@ -21,7 +21,7 @@
             </Grid.RowDefinitions>
             <TextBlock x:FieldModifier="private" x:Name="PromptMessageTextBlock" Grid.Row="0" FontSize="14" FontWeight="Bold" />
             <TextBlock x:FieldModifier="private" x:Name="ProgressingTextBlock" Grid.Row="1" TextWrapping="WrapWithOverflow"/>
-            <ProgressBar x:FieldModifier="private" x:Name="WaitingProgressBar" Grid.Row="2" IsIndeterminate="True" Height="30" />
+            <ProgressBar Grid.Row="2" IsIndeterminate="True" Height="30" />
         </Grid>
     </Border>
 </Window>

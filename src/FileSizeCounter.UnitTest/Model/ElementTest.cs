@@ -1,7 +1,7 @@
 ﻿using FileSizeCounter.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FileSizeCounter.UnitTest
+namespace FileSizeCounter.UnitTest.Model
 {
   [TestClass]
   public class ElementTest
@@ -37,7 +37,7 @@ namespace FileSizeCounter.UnitTest
     {
       var fileElement = new FileElement(@"c:\folder1\file1.txt", 1024);
       var actualDisplayString = fileElement.DisplayString;
-      Assert.AreEqual("file1.txt [1.0 K]", actualDisplayString);
+      Assert.AreEqual("file1.txt [1.0 KB]", actualDisplayString);
     }
 
     [TestMethod]

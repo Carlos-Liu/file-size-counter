@@ -180,5 +180,41 @@ namespace Res {
                 return ResourceManager.GetString("PropertySupport_Error_PropertyIsStatic", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Byte(s).
+        /// </summary>
+        internal static string Suffix_SizeUnit_Bytes {
+            get {
+                return ResourceManager.GetString("Suffix_SizeUnit_Bytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  GB.
+        /// </summary>
+        internal static string Suffix_SizeUnit_Gigabytes {
+            get {
+                return ResourceManager.GetString("Suffix_SizeUnit_Gigabytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  KB.
+        /// </summary>
+        internal static string Suffix_SizeUnit_Kilobytes {
+            get {
+                return ResourceManager.GetString("Suffix_SizeUnit_Kilobytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  MB.
+        /// </summary>
+        internal static string Suffix_SizeUnit_Megabytes {
+            get {
+                return ResourceManager.GetString("Suffix_SizeUnit_Megabytes", resourceCulture);
+            }
+        }
     }
 }

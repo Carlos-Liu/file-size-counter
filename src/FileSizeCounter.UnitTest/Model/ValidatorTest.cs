@@ -1,7 +1,7 @@
 ﻿using FileSizeCounter.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FileSizeCounter.UnitTest
+namespace FileSizeCounter.UnitTest.Model
 {
   [TestClass]
   public class ValidatorTest

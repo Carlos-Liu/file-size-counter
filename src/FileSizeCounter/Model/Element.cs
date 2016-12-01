@@ -1,15 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using FileSizeCounter.Constants;
 using FileSizeCounter.MicroMvvm;
+using Res;
 
 namespace FileSizeCounter.Model
 {
   internal abstract class Element : ObservableObject, IElement
   {
-    private const string ByteSuffix = " Byte(s)";
-    private const string KbSuffix = " K";
-    private const string MbSuffix = " M";
-    private const string GbSuffix = " G";
-    private const float SizeMeasurement = 1024.0f;
 
     private long _Size;
 
@@ -38,16 +36,19 @@ namespace FileSizeCounter.Model
     {
       get
       {
-        if (Size < SizeMeasurement)
-          return Size + ByteSuffix;
+          double power2 = Math.Pow(Consts.SizeMeasurement, 2);
+          double power3 = Math.Pow(Consts.SizeMeasurement, 3);
 
-        if (Size < SizeMeasurement*SizeMeasurement)
-          return (Size/SizeMeasurement).ToString("F1") + KbSuffix;
+          if (Size < Consts.SizeMeasurement)
+              return Size + Resources.Suffix_SizeUnit_Bytes;
 
-        if (Size < SizeMeasurement*SizeMeasurement*SizeMeasurement)
-          return (Size/(SizeMeasurement*SizeMeasurement)).ToString("F1") + MbSuffix;
+          if (Size < power2)
+              return (Size / Consts.SizeMeasurement).ToString("F1") + Resources.Suffix_SizeUnit_Kilobytes;
 
-        return (Size/(SizeMeasurement*SizeMeasurement*SizeMeasurement)).ToString("F1") + GbSuffix;
+          if (Size < power3)
+              return (Size / power2).ToString("F1") + Resources.Suffix_SizeUnit_Megabytes;
+
+          return (Size / power3).ToString("F1") + Resources.Suffix_SizeUnit_Gigabytes;
       }
     }
 

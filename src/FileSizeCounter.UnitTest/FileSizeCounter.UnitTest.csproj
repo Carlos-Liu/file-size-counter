@@ -58,13 +58,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ElementTest.cs" />
-    <Compile Include="FileElementTest.cs" />
-    <Compile Include="FolderElementTest.cs" />
+    <Compile Include="Model\ElementTest.cs" />
+    <Compile Include="Extensions\DoubleExTests.cs" />
+    <Compile Include="Model\FileElementTest.cs" />
+    <Compile Include="Model\FolderElementTest.cs" />
     <Compile Include="HelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SizeCounterViewModelTest.cs" />
-    <Compile Include="ValidatorTest.cs" />
+    <Compile Include="Model\SizeCounterViewModelTest.cs" />
+    <Compile Include="Model\ValidatorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FileSizeCounter\FileSizeCounter.csproj">

@@ -98,6 +98,8 @@
       <DependentUpon>BusyIndicatorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\IBusyIndicatorWindow.cs" />
+    <Compile Include="Constants\Consts.cs" />
+    <Compile Include="Extensions\DoubleEx.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="MicroMvvm\ObservableObject.cs" />
     <Compile Include="MicroMvvm\PropertySupport.cs" />

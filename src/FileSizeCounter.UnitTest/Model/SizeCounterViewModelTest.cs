@@ -4,7 +4,7 @@ using FileSizeCounter.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
-namespace FileSizeCounter.UnitTest
+namespace FileSizeCounter.UnitTest.Model
 {
     [TestClass]
     public class SizeCounterViewModelTest

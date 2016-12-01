@@ -160,4 +160,16 @@ Detail error information: {0}</value>
   <data name="Message_ParseResult_Succeeded" xml:space="preserve">
     <value>Inspect successful.</value>
   </data>
+  <data name="Suffix_SizeUnit_Bytes" xml:space="preserve">
+    <value> Byte(s)</value>
+  </data>
+  <data name="Suffix_SizeUnit_Gigabytes" xml:space="preserve">
+    <value> GB</value>
+  </data>
+  <data name="Suffix_SizeUnit_Kilobytes" xml:space="preserve">
+    <value> KB</value>
+  </data>
+  <data name="Suffix_SizeUnit_Megabytes" xml:space="preserve">
+    <value> MB</value>
+  </data>
 </root>

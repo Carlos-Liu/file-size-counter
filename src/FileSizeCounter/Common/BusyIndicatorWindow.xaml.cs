@@ -29,6 +29,8 @@ namespace FileSizeCounter.Common
             OwnerWindow = ownerWindow;
         }
 
+        #region Implementations of IBusyIndicatorWindow
+
         /// <summary>
         ///   Gets if there is any execution exception.
         ///   null: there is no exception.
@@ -68,7 +70,7 @@ namespace FileSizeCounter.Common
         ///   Refer to <see cref="ExecutionException" /> to check if there is any exception occurred.
         /// </remarks>
         public TReturnType ExecuteAndWait<TReturnType>(string operationDescription,
-          Func<TReturnType> functionToRunInAnotherThread)
+            Func<TReturnType> functionToRunInAnotherThread)
         {
             Debug.Assert(OwnerWindow != null);
 
@@ -79,8 +81,11 @@ namespace FileSizeCounter.Common
             Owner = OwnerWindow;
             ShowDialog();
 
-            return (TReturnType)_ExecutionResult;
+            return (TReturnType) _ExecutionResult;
         }
+
+        #endregion
+
 
         private void OnFinishCallback<TReturnType>(TReturnType executeResult)
         {
