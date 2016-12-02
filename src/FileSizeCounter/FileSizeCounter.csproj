@@ -148,20 +148,19 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\app.png" />
-    <Resource Include="Images\browse.png" />
-    <Resource Include="Images\delete.png" />
-    <Resource Include="Images\file16.png" />
-    <Resource Include="Images\folder16.png" />
-    <Resource Include="Images\info.png" />
     <Resource Include="Images\open-item.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\refresh.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\collapse-all.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\error.png" />
+    <Resource Include="Images\expand-all.png" />
+    <Resource Include="Images\file16.png" />
+    <Resource Include="Images\folder16.png" />
     <Resource Include="Images\inspect.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\success-with-error.png" />
     <Resource Include="Images\success.png" />
   </ItemGroup>
