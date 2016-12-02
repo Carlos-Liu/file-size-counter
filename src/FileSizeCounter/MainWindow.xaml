@@ -51,15 +51,24 @@
               Content="..."
               HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-            <TextBlock Text="Filter Size (Mb):" Grid.Row="1" Grid.Column="0" />
+            <TextBlock Text="Filter Size (MB):" Grid.Row="1" Grid.Column="0" />
 
-            <TextBox  Grid.Row="1" Grid.Column="1" Name="ThresholdValueTextBox" MinWidth="50" MaxWidth="100" 
-               HorizontalAlignment="Left"
-                 Text="{Binding SizeFilterValue, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" 
-                 PreviewTextInput="ThresholdValueTextBox_OnPreviewTextInput"
-                 ContextMenu="{x:Null}"
-                 CommandManager.PreviewExecuted="ThresholdValueTextBox_OnPreviewExecuted"
-                 ToolTip="Highlight the item which size is larger than this value"/>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                <TextBox Name="ThresholdValueTextBox" MinWidth="50" MaxWidth="100" 
+                         HorizontalAlignment="Left"
+                         Text="{Binding SizeFilterValue, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}" 
+                         PreviewTextInput="ThresholdValueTextBox_OnPreviewTextInput"
+                         ContextMenu="{x:Null}"
+                         CommandManager.PreviewExecuted="ThresholdValueTextBox_OnPreviewExecuted"/>
+
+                <!-- The button is just used to switch the focused control to trigger the property change for SizeFilterValue -->
+                <Button Name="RefreshButton" Margin="-4,4,4,4"
+                        Height="{Binding ElementName=ThresholdValueTextBox, Path=ActualHeight}">
+                    <Button.Content>
+                        <Image Source="Images/refresh.png" Width="16" Margin="-10"></Image>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
 
             <Button Name="StartButton" Grid.Row="0" Grid.Column="3" Grid.RowSpan="2"
             Command="{Binding StartCmd}">
