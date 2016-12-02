@@ -26,15 +26,21 @@ namespace FileSizeCounter.UnitTest.Model
         }
 
         [TestMethod]
-        public void FilterSize_DeDefault_IsMaxDoubleValue()
+        public void FilterSize_DeDefault_IsOneMB()
         {
-            Assert.AreEqual(double.MaxValue, _SizeCounterViewModel.FilterSize);
+            Assert.AreEqual(1, _SizeCounterViewModel.FilterSize);
         }
 
         [TestMethod]
         public void HideSmallerElements_ByDefault_IsFalse()
         {
             Assert.IsFalse(_SizeCounterViewModel.HideSmallerElements);
+        }
+
+        [TestMethod]
+        public void HighlightElements_ByDefault_IsTrue()
+        {
+            Assert.IsTrue(_SizeCounterViewModel.HighlightElements);
         }
         
         [TestMethod]
@@ -128,10 +134,10 @@ namespace FileSizeCounter.UnitTest.Model
         }
 
         [TestMethod]
-        public void SizeFilterValue_SetEmptyValue_FilterSizeIsSetAsDefaultValue()
+        public void SizeFilterValue_SetEmptyValue_FilterSizeIsSetAs1MB()
         {
             _SizeCounterViewModel.SizeFilterValue = string.Empty;
-            Assert.AreEqual(double.MaxValue, _SizeCounterViewModel.FilterSize);
+            Assert.AreEqual(1, _SizeCounterViewModel.FilterSize);
         }
 
         [TestMethod]

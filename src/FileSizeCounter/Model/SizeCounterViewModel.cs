@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -13,15 +14,19 @@ using Res;
 
 namespace FileSizeCounter.Model
 {
+    /// <summary>
+    /// The view model which encapsulates the business logics.
+    /// </summary>
     public class SizeCounterViewModel : ObservableObject, IDataErrorInfo
     {
-        private const double DefaultFilterSize = double.MaxValue;
+        private const double DefaultFilterSize = 1;
         private readonly IBusyIndicatorWindow _BusyWindow;
 
         public SizeCounterViewModel(IBusyIndicatorWindow busyIndicatorWindow)
         {
             TargetDirectory = @"C:\";
-            FilterSize = DefaultFilterSize;
+            SizeFilterValue = DefaultFilterSize.ToString(CultureInfo.InvariantCulture);
+            HighlightElements = true;
             _BusyWindow = busyIndicatorWindow;
         }
 
