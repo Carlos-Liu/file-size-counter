@@ -7,12 +7,12 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("File Size Counter")]
-[assembly: AssemblyDescription("Utility used to calculate the file/folder size")]
+[assembly: AssemblyTitle("File Size Inspector")]
+[assembly: AssemblyDescription("Utility used to inspecting the file/folder size.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FileSizeCounter")]
-[assembly: AssemblyCopyright("Copyright © Carlosix 2016")]
+[assembly: AssemblyProduct("FileSizeInspector")]
+[assembly: AssemblyCopyright("Copyright © Carlos Liu 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

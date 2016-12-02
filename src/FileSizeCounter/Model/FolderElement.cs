@@ -3,48 +3,48 @@ using System.IO;
 
 namespace FileSizeCounter.Model
 {
-  internal class FolderElement : Element
-  {
-    private readonly ObservableCollection<IElement> _Children = new ObservableCollection<IElement>();
-
-    public FolderElement(string name)
+    internal class FolderElement : Element
     {
-      Name = name;
+        private readonly ObservableCollection<IElement> _Children = new ObservableCollection<IElement>();
+
+        public FolderElement(string name)
+        {
+            Name = name;
+        }
+
+        public override string ShortName
+        {
+            get
+            {
+                var directoryInfo = new DirectoryInfo(Name);
+                return directoryInfo.Name;
+            }
+        }
+
+        public override ObservableCollection<IElement> Children
+        {
+            get { return _Children; }
+        }
+
+
+        public override string ImagePath
+        {
+            get { return @"Images\folder16.png"; }
+        }
+
+        public void Add(IElement element)
+        {
+            Size += element.Size;
+
+            element.Parent = this;
+            Children.Add(element);
+        }
+
+        public override void Remove(IElement elementToBeRemoved)
+        {
+            Size -= elementToBeRemoved.Size;
+
+            Children.Remove(elementToBeRemoved);
+        }
     }
-
-    public override string ShortName
-    {
-      get
-      {
-        var directoryInfo = new DirectoryInfo(Name);
-        return directoryInfo.Name;
-      }
-    }
-
-    public override ObservableCollection<IElement> Children
-    {
-      get { return _Children; }
-    }
-
-
-    public override string ImagePath
-    {
-      get { return @"Images\folder16.png"; }
-    }
-
-    public void Add(IElement element)
-    {
-      Size += element.Size;
-
-      element.Parent = this;
-      Children.Add(element);
-    }
-
-    public override void Remove(IElement elementToBeRemoved)
-    {
-      Size -= elementToBeRemoved.Size;
-
-      Children.Remove(elementToBeRemoved);
-    }
-  }
 }
