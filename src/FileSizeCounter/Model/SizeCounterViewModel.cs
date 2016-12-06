@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
+using Microsoft.VisualBasic.FileIO;
 using FileSizeCounter.Common;
 using FileSizeCounter.Extensions;
 using FileSizeCounter.MicroMvvm;
@@ -222,26 +223,24 @@ namespace FileSizeCounter.Model
             var parentElement = SelectedElement.Parent as FolderElement;
             Debug.Assert(parentElement != null);
 
-            var confirmToDelte = MessageBox.Show(Resources.Message_DeleteFileConfirmMsg, Resources.Message_ApplicationTitle,
-              MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (confirmToDelte != MessageBoxResult.Yes)
-                return;
-
             try
             {
-
+                // There will be the system deletion confirmation dialog pop up when specifying the UIOption.AllDialogs argument
                 if (SelectedElement is FileElement)
                 {
-                    File.Delete(SelectedElement.Name);
+                    FileSystem.DeleteFile(SelectedElement.Name, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
                 }
                 else
                 {
-                    Directory.Delete(SelectedElement.Name, true);
+                    FileSystem.DeleteDirectory(SelectedElement.Name, UIOption.AllDialogs, RecycleOption.SendToRecycleBin);
                 }
 
                 // do this after the file/folder was removed from disk
                 parentElement.Remove(SelectedElement);
+            }
+            catch (OperationCanceledException)
+            {
+                // The exception will occur if select 'No' in the deletion confirmation dialog, so just swallow the exception
             }
             catch (Exception ex)
             {

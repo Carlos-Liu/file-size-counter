@@ -129,9 +129,6 @@
   <data name="MainWindow_Info_SelectTargetDirectory" xml:space="preserve">
     <value>Please select the folder you want to inspect</value>
   </data>
-  <data name="Message_DeleteFileConfirmMsg" xml:space="preserve">
-    <value>The file or folder will be deleted permanently (bypassing the recycle bin), are you sure you want to delete it?</value>
-  </data>
   <data name="Message_ApplicationTitle" xml:space="preserve">
     <value>File Size Inspector</value>
   </data>
