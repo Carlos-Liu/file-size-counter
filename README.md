@@ -1,6 +1,10 @@
 # file-size-counter
 
+dev branch build status:
 [![Build status](https://ci.appveyor.com/api/projects/status/anyrbtmxweveyj8t/branch/dev?svg=true)](https://ci.appveyor.com/project/Carlos-Liu/file-size-counter/branch/dev)
+
+master branch build status:
+[![Build status](https://ci.appveyor.com/api/projects/status/anyrbtmxweveyj8t/branch/master?svg=true)](https://ci.appveyor.com/project/Carlos-Liu/file-size-counter/branch/master)
 
 It is a quite simple tool to inspect on the specified folder to 
 - Get the statistics about the size of each file and folder
