@@ -1,15 +1,13 @@
 # file-size-counter
 
-dev branch build status:
+dev branch status:
 
 [![Build status](https://ci.appveyor.com/api/projects/status/anyrbtmxweveyj8t/branch/dev?svg=true)](https://ci.appveyor.com/project/Carlos-Liu/file-size-counter/branch/dev)
+[![codecov](https://codecov.io/gh/Carlos-Liu/file-size-counter/branch/dev/graph/badge.svg)](https://codecov.io/gh/Carlos-Liu/file-size-counter)
 
-master branch build status:
+master branch status:
 
 [![Build status](https://ci.appveyor.com/api/projects/status/anyrbtmxweveyj8t/branch/master?svg=true)](https://ci.appveyor.com/project/Carlos-Liu/file-size-counter/branch/master)
-
-Code Coverage:
-
 [![codecov](https://codecov.io/gh/Carlos-Liu/file-size-counter/branch/master/graph/badge.svg)](https://codecov.io/gh/Carlos-Liu/file-size-counter)
 
 It is a quite simple tool to inspect on the specified folder to 
