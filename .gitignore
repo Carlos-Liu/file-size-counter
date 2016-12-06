@@ -4,22 +4,20 @@
 Thumbs.db
 *.obj
 *.exe
-*.user
 *.aps
 *.pch
 *.vspscc
 *_i.c
 *_p.c
 *.ncb
-*.suo
 *.sln.docstates
 *.tlb
 *.tlh
 *.bak
 *.cache
 *.ilk
-*.log
-*.cache
+
+# Build output
 [Bb]in/
 [Oo]bj
 [Dd]ebug*/
@@ -28,6 +26,17 @@ Thumbs.db
 obj/
 [Rr]elease*/
 _ReSharper*/
-[Tt]est[Rr]esult*
 *.vssscc
 $tf*/
+
+# Artifacts of the IDE and build
+*.sln.ide/
+.vs/
+packages/
+*.suo
+*.user
+[Tt]est[Rr]esult*
+OpenCover.Reports/
+.nuget/NuGet.exe
+build/nuget/
+*.log
