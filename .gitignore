@@ -40,3 +40,5 @@ OpenCover.Reports/
 .nuget/NuGet.exe
 build/nuget/
 *.log
+results.xml
+project_coverage.xml
