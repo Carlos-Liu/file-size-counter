@@ -1,4 +1,4 @@
-# file-size-counter
+# File Size Inspector
 
 dev branch status:
 
@@ -14,4 +14,4 @@ It is a quite simple tool to inspect on the specified folder to
 - Get the statistics about the size of each file and folder
 - Hide the file/folder that is smaller than the specified size
 - Highlight the file/folder that is larger than the specified size
-- Remove the file/folder from the tool
+- Remove the file/folder from the hard disk via this tool
