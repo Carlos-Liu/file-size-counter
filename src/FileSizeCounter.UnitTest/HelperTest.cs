@@ -84,6 +84,13 @@ namespace FileSizeCounter.UnitTest
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
+    public void OpenFolderAndSelectFile_FilePathIsEmpty_ExceptionIsThrown()
+    {
+        Helper.OpenFolderAndSelectFile(string.Empty);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
     public void OpenFolderAndSelectFile_FilePathIsWhitespaceOnly_ExceptionIsThrown()
     {
         Helper.OpenFolderAndSelectFile("   ");

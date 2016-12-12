@@ -59,6 +59,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MicroMvvm\ObservableObjectTests.cs" />
+    <Compile Include="MicroMvvm\PropertySupportTests.cs" />
+    <Compile Include="MicroMvvm\RelayCommandTests.cs" />
     <Compile Include="Model\ElementTest.cs" />
     <Compile Include="Extensions\DoubleExTests.cs" />
     <Compile Include="Model\FileElementTest.cs" />
@@ -106,4 +109,3 @@
   </Target>
   -->
 </Project>
-
